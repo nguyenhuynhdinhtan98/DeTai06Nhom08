@@ -33,7 +33,7 @@ class ClassImportScreen extends Component {
   }
   handldeCheckFileCSVHeader = async (value) => {
     return await value.some((item) => {
-      if (item.hasOwnProperty('class_name')) {
+      if (item.hasOwnProperty('class_name') === true) {
         return item;
       }
     });

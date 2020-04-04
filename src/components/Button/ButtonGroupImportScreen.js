@@ -6,13 +6,13 @@ const ButtonGroupImportScreen = ({onPressImport, onPressDownloadFile}) => {
     <>
       <View style={styles.buttonGroup}>
         <TouchableOpacity onPress={onPressImport}>
-          <Icon name="download" type="font-awesome" color="black" size={40} />
+          <Icon name="download" type="font-awesome" color="black" size={45} />
           <Text style={styles.textButtonGroup}>Click To Import CSV File</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.buttonGroup}>
         <TouchableOpacity onPress={onPressDownloadFile}>
-          <Icon name="file" type="font-awesome" color="black" size={40} />
+          <Icon name="file" type="font-awesome" color="black" size={45} />
           <Text style={styles.textButtonGroup}>Download Sample File</Text>
         </TouchableOpacity>
       </View>
@@ -24,14 +24,7 @@ const styles = StyleSheet.create({
   textButtonGroup: {
     marginTop: 5,
     fontWeight: '600',
-    fontSize: 15,
-  },
-  headerList: {
-    width: '100%',
-    height: 25,
-    borderBottomWidth: 1,
-    borderColor: '#000',
-    flexDirection: 'row',
+    fontSize: 16,
   },
 });
 export default ButtonGroupImportScreen;

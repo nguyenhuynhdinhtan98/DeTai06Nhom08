@@ -11,7 +11,7 @@ export const singleFilePicker = async () => {
     });
     return res.uri;
   } catch (err) {
-    console.log(err);
+    Alert.alert(err.message);
   }
 };
 export const csvDatatoJson = async (uri) => {

@@ -34,8 +34,8 @@ class TrainerImportScreen extends Component {
   handldeCheckFileCSVHeader = async (value) => {
     return await value.some((item) => {
       if (
-        item.hasOwnProperty('trainer_name') &&
-        item.hasOwnProperty('date_of_birth')
+        item.hasOwnProperty('trainer_name') === true &&
+        item.hasOwnProperty('date_of_birth') === true
       ) {
         return item;
       }

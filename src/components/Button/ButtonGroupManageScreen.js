@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   textButtonGroup: {
     marginTop: 5,
     fontWeight: '600',
-    fontSize: 15,
+    fontSize: 16,
   },
 });
 export default ButtonGroupManageScreen;

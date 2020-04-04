@@ -20,9 +20,8 @@ class TraineeImportScreen extends Component {
   async handldeChooseFile() {
     const uri = await singleFilePicker();
     const value = await csvDatatoJson(uri);
-    console.log(value.data);
     if (value.data.length !== 0) {
-      var check = await this.handldeCheckFileCSVHeader(value.data);
+      let check = await this.handldeCheckFileCSVHeader(value.data);
       if (check) {
         this.setState({valueFile: value.data});
       } else {
@@ -32,14 +31,15 @@ class TraineeImportScreen extends Component {
       Alert.alert('File is not data');
     }
   }
-  handldeCheckFileCSVHeader = (value) => {
-    console.log(value);
-    return value.some((item) => {
-      item.hasOwnProperty('trainee_name') &&
-      item.hasOwnProperty('date_of_birth') &&
-      item.hasOwnProperty('skill')
-        ? item
-        : true;
+  handldeCheckFileCSVHeader = async (value) => {
+    return await value.some((item) => {
+      if (
+        item.hasOwnProperty('trainee_name') === true &&
+        item.hasOwnProperty('date_of_birth') === true &&
+        item.hasOwnProperty('skill') === true
+      ) {
+        return item;
+      }
     });
   };
 
