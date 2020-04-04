@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 40,
     justifyContent: 'center',
+    borderRadius: 5,
   },
   dateInput: {
     alignItems: 'flex-start',
