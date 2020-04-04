@@ -16,7 +16,7 @@ class TrainerForm extends Component {
             value={this.props.trainer_name}
             placeholder="Enter Your Trainer Name"
             inputContainerStyle={{borderBottomWidth: 0}}
-            onChangeText={text =>
+            onChangeText={(text) =>
               this.props.valueChange({prop: 'trainer_name', value: text})
             }
             inputStyle={{fontSize: 16, marginLeft: -5}}
@@ -34,11 +34,11 @@ class TrainerForm extends Component {
               date={this.props.date_of_birth}
               mode="date" //The enum of date, datetime and time
               androidMode={'spinner'}
-              placeholder="select date"
+              placeholder="Select Date Of Birth"
               format="DD-MM-YYYY"
               minDate="01-01-1900"
               maxDate={new Date()}
-              onDateChange={date =>
+              onDateChange={(date) =>
                 this.props.valueChange({prop: 'date_of_birth', value: date})
               }
               showIcon={false}
@@ -69,6 +69,12 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 40,
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 2, height: 2},
+    shadowRadius: 2,
+    borderRadius: 2,
+    elevation: 1,
+    shadowOpacity: 0.1,
   },
   dateInput: {
     alignItems: 'flex-start',

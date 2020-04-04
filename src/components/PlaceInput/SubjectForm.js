@@ -13,7 +13,7 @@ class SubjectForm extends Component {
             value={this.props.subject_name}
             placeholder="Enter Your Subject Name"
             inputContainerStyle={{borderBottomWidth: 0}}
-            onChangeText={text =>
+            onChangeText={(text) =>
               this.props.valueChange({prop: 'subject_name', value: text})
             }
             inputStyle={{fontSize: 16, marginLeft: -5}}
@@ -31,6 +31,12 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 40,
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 2, height: 2},
+    shadowRadius: 2,
+    borderRadius: 2,
+    elevation: 1,
+    shadowOpacity: 0.1,
   },
   dateInput: {
     alignItems: 'flex-start',

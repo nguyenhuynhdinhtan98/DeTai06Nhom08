@@ -23,7 +23,7 @@ class ClassForm extends Component {
             value={this.props.class_name}
             placeholder="Enter Your Class Name"
             inputContainerStyle={{borderBottomWidth: 0}}
-            onChangeText={text =>
+            onChangeText={(text) =>
               this.props.valueChange({prop: 'class_name', value: text})
             }
             inputStyle={{fontSize: 16, marginLeft: -5}}
@@ -36,7 +36,7 @@ class ClassForm extends Component {
             iosIcon={<Icon name="arrow-down" />}
             style={{flex: 1}}
             selectedValue={this.props.trainer_id}
-            onValueChange={value => {
+            onValueChange={(value) => {
               this.props.valueChange({prop: 'trainer_id', value: value});
             }}>
             <Picker.Item label="Please select an option..." value="0" />
@@ -55,6 +55,12 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 40,
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 2, height: 2},
+    shadowRadius: 2,
+    borderRadius: 2,
+    elevation: 1,
+    shadowOpacity: 0.1,
   },
   dateInput: {
     alignItems: 'flex-start',

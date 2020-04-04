@@ -22,6 +22,12 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     height: 40,
+    shadowColor: '#000',
+    shadowOffset: {width: 2, height: 2},
+    shadowRadius: 2,
+    borderRadius: 2,
+    elevation: 1,
+    shadowOpacity: 0.1,
   },
 });
 export default SearchList;

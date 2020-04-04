@@ -24,7 +24,7 @@ class TraineeForm extends Component {
             value={this.props.trainee_name}
             placeholder="Enter Your Trainee Name"
             inputContainerStyle={{borderBottomWidth: 0}}
-            onChangeText={text =>
+            onChangeText={(text) =>
               this.props.valueChange({prop: 'trainee_name', value: text})
             }
             inputStyle={{fontSize: 16, marginLeft: -5}}
@@ -46,7 +46,7 @@ class TraineeForm extends Component {
               format="DD-MM-YYYY"
               minDate="01-01-1900"
               maxDate={new Date()}
-              onDateChange={date =>
+              onDateChange={(date) =>
                 this.props.valueChange({prop: 'date_of_birth', value: date})
               }
               showIcon={false}
@@ -68,11 +68,11 @@ class TraineeForm extends Component {
         <View style={styles.inputContainer}>
           <Picker
             mode="dialog"
-            placeholder="Select Data"
+            placeholder="Select Skill"
             iosIcon={<Icon name="arrow-down" />}
             style={{flex: 1}}
             selectedValue={this.props.skill}
-            onValueChange={value =>
+            onValueChange={(value) =>
               this.props.valueChange({prop: 'skill', value: value})
             }>
             <Picker.Item label="Please select an option..." value="0" />
@@ -91,6 +91,12 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 40,
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 2, height: 2},
+    shadowRadius: 2,
+    borderRadius: 2,
+    elevation: 1,
+    shadowOpacity: 0.1,
   },
   dateInput: {
     alignItems: 'flex-start',

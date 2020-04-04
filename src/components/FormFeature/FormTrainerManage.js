@@ -21,7 +21,7 @@ class FormTrainerManage extends Component {
         <View style={styles.containerSearch}>
           <SearchList
             value={this.props.search}
-            onChange={text =>
+            onChange={(text) =>
               this.props.valueChange({prop: 'search', value: text})
             }
           />
@@ -65,6 +65,12 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginBottom: 5,
     fontWeight: '600',
+    shadowColor: '#000',
+    shadowOffset: {width: 2, height: 2},
+    shadowRadius: 2,
+    borderRadius: 2,
+    elevation: 1,
+    shadowOpacity: 0.1,
   },
   containerItem: {
     borderBottomColor: 'black',
