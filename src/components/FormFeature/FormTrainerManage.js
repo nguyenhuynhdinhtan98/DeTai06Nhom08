@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontWeight: '600',
     shadowColor: '#000',
-    shadowOffset: {width: 2, height: 2},
+    shadowOffset: {width: 1, height: 1},
     shadowRadius: 2,
     borderRadius: 2,
     elevation: 1,

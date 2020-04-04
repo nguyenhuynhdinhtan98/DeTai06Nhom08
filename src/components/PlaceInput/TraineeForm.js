@@ -42,7 +42,7 @@ class TraineeForm extends Component {
               date={this.props.date_of_birth}
               mode="date" //The enum of date, datetime and time
               androidMode={'spinner'}
-              placeholder="select date"
+              placeholder="Select Date Of Birth"
               format="DD-MM-YYYY"
               minDate="01-01-1900"
               maxDate={new Date()}
@@ -55,7 +55,6 @@ class TraineeForm extends Component {
                 dateInput: styles.dateInput,
               }}
             />
-
             <Icon
               name="calendar"
               type="font-awesome"
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: {width: 2, height: 2},
+    shadowOffset: {width: 1, height: 1},
     shadowRadius: 2,
     borderRadius: 2,
     elevation: 1,

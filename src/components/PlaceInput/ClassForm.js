@@ -32,7 +32,7 @@ class ClassForm extends Component {
         <View style={styles.inputContainer}>
           <Picker
             mode="dialog"
-            placeholder="Select Data"
+            placeholder="Select Trainer Name"
             iosIcon={<Icon name="arrow-down" />}
             style={{flex: 1}}
             selectedValue={this.props.trainer_id}
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: {width: 2, height: 2},
+    shadowOffset: {width: 1, height: 1},
     shadowRadius: 2,
     borderRadius: 2,
     elevation: 1,
