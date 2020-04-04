@@ -90,12 +90,6 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 40,
     justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: {width: 1, height: 1},
-    shadowRadius: 2,
-    borderRadius: 2,
-    elevation: 1,
-    shadowOpacity: 0.1,
   },
   dateInput: {
     alignItems: 'flex-start',
