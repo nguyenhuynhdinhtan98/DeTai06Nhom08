@@ -63,17 +63,16 @@ export const getAllMarkTrainee = (trainee_id) => {
       .ref(`/mark/${trainee_id}`)
       .on('value', async (snapshot) => {
         let arr = [];
-
-        snapshot.val().forEach((item) => {
+        snapshot.val().forEach((element) => {
           firebaseConfigure
             .database()
-            .ref(`/subject/${item.subject_id}`)
+            .ref(`/subject/${element.subject_id}`)
             .on('value', (snapshot) => {
               const subject = snapshot.val();
-              arr.push({...item, subject});
+              arr.push({...element, subject});
             });
         });
-
+        console.log(arr);
         dispatch({
           type: actionType.GET_ALL_MARK,
           payload: arr,
@@ -81,6 +80,20 @@ export const getAllMarkTrainee = (trainee_id) => {
       });
   };
 };
+
+export const editMark = (trainee_id, subject_id, mark) => {
+  return (dispatch) => {
+    firebaseConfigure
+      .database()
+      .ref(`/mark/${trainee_id}`)
+      .equalTo(subject_id)
+      .set(mark);
+    dispatch({
+      type: actionType.NULL_ALL,
+    });
+  };
+};
+
 export const removeInput = () => {
   return (dispatch) => {
     dispatch({

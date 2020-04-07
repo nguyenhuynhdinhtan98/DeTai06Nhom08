@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   date_of_birth: '',
   mark: [],
   skill: '',
+  mark_subject: 0,
   error: '',
   search: '',
   trainee: [],

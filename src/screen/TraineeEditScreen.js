@@ -12,12 +12,11 @@ import _ from 'lodash';
 import TableEditScreen from '../components/Table/TableEditScreen';
 import validation from '../utility/validation';
 class TraineeEditScreen extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     console.disableYellowBox = true;
-    _.each(this.props.route.params.item, (value, prop) => {
+    await _.each(this.props.route.params.item, (value, prop) => {
       this.props.valueChange({prop, value});
     });
-    this.props.getAllMarkTrainee(this.props.route.params.item.trainee_id);
   }
 
   handldeEditTrainee = () => {
@@ -53,7 +52,9 @@ class TraineeEditScreen extends Component {
           />
         </View>
         <View style={styles.tableContainer}>
-          <TableEditScreen value={this.props.mark} />
+          <TableEditScreen
+            trainee_id={this.props.route.params.item.trainee_id}
+          />
         </View>
       </View>
     );
@@ -82,14 +83,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const {
-    trainee_id,
-    trainee_name,
-    date_of_birth,
-    skill,
-    mark,
-  } = state.TraineeReducer;
-  return {trainee_id, trainee_name, date_of_birth, skill, mark};
+  const {trainee_id, trainee_name, date_of_birth, skill} = state.TraineeReducer;
+  return {trainee_id, trainee_name, date_of_birth, skill};
 };
 export default connect(mapStateToProps, {
   valueChange,
