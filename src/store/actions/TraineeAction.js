@@ -46,7 +46,7 @@ export const getAllTrainee = () => {
 };
 export const traineeEdit = (trainee_id, trainee_name, date_of_birth, skill) => {
   return (dispatch) => {
-    firebaseConfigure.database().ref(`/trainee/${trainee_id}`).set({
+    firebaseConfigure.database().ref(`/trainee/${trainee_id}`).update({
       trainee_name,
       date_of_birth,
       skill,
@@ -54,6 +54,31 @@ export const traineeEdit = (trainee_id, trainee_name, date_of_birth, skill) => {
     dispatch({
       type: actionType.EDIT,
     });
+  };
+};
+export const getAllMarkTrainee = (trainee_id) => {
+  return (dispatch) => {
+    firebaseConfigure
+      .database()
+      .ref(`/mark/${trainee_id}`)
+      .on('value', async (snapshot) => {
+        let arr = [];
+
+        snapshot.val().forEach((item) => {
+          firebaseConfigure
+            .database()
+            .ref(`/subject/${item.subject_id}`)
+            .on('value', (snapshot) => {
+              const subject = snapshot.val();
+              arr.push({...item, subject});
+            });
+        });
+
+        dispatch({
+          type: actionType.GET_ALL_MARK,
+          payload: arr,
+        });
+      });
   };
 };
 export const removeInput = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import {Icon} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const TableEditScreen = ({value}) => {
   return (
     <>
@@ -16,13 +16,13 @@ const TableEditScreen = ({value}) => {
           renderItem={({item}) => (
             <View style={styles.containerItemList}>
               <Text style={[styles.textContentList, {flex: 2}]}>
-                {item.trainee_name}
+                {item.subject.subject_name}
               </Text>
               <Text style={[styles.textContentList, {flex: 1}]}>
-                {item.date_of_birth}
+                {item.mark}
               </Text>
               <Text style={[styles.textContentList, {flex: 1}]}>
-                <Icon name="plus" type="font-awesome" color="white" size={25} />
+                <Icon name="plus" size={25} color="#000" />
               </Text>
             </View>
           )}
@@ -51,13 +51,12 @@ const styles = StyleSheet.create({
   },
   textContentList: {
     fontWeight: '500',
-    fontSize: 12,
+    fontSize: 15,
     marginLeft: 5,
     flex: 1,
   },
   containerItemList: {
     justifyContent: 'center',
-    height: 35,
     flexDirection: 'row',
     marginTop: 5,
   },

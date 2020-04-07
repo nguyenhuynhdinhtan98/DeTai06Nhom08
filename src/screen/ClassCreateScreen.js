@@ -3,7 +3,12 @@ import {View, StyleSheet, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import {Icon, Button} from 'react-native-elements';
 import ClassForm from '../components/PlaceInput/ClassForm';
-import {classCreate, removeInput} from '../store/actions/ClassAction';
+import _ from 'lodash';
+import {
+  classCreate,
+  markCreate,
+  removeInput,
+} from '../store/actions/ClassAction';
 import validation from '../utility/validation';
 class ClassCreateScreen extends Component {
   componentDidMount() {
@@ -20,6 +25,9 @@ class ClassCreateScreen extends Component {
         this.props.trainee_id,
         this.props.subject_id,
       );
+      _.forEach(this.props.trainee_id, (trainee_id) => {
+        this.props.markCreate(trainee_id, this.props.subject_id);
+      });
       Alert.alert('Create Success');
     } else {
       Alert.alert('Invalid Infromation');
@@ -107,6 +115,6 @@ const mapStateToProps = (state, ownProps) => {
   } = state.ClassReducer;
   return {class_name, trainer_id, trainee_id, subject_id, trainee};
 };
-export default connect(mapStateToProps, {classCreate, removeInput})(
+export default connect(mapStateToProps, {classCreate, markCreate, removeInput})(
   ClassCreateScreen,
 );

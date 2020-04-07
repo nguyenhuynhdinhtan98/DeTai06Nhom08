@@ -45,7 +45,7 @@ export const getAllTrainer = () => {
 };
 export const trainerEdit = (trainer_id, trainer_name, date_of_birth) => {
   return (dispatch) => {
-    firebaseConfigure.database().ref(`/trainer/${trainer_id}`).set({
+    firebaseConfigure.database().ref(`/trainer/${trainer_id}`).update({
       trainer_name,
       date_of_birth,
     });

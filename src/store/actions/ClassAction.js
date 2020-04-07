@@ -24,6 +24,17 @@ export const classCreate = (class_name, trainer_id, trainee_id, subject_id) => {
     });
   };
 };
+export const markCreate = (trainee_id, subject_id) => {
+  return (dispatch) => {
+    firebaseConfigure
+      .database()
+      .ref(`/mark/${trainee_id}`)
+      .set(subject_id.map((subject_id) => ({subject_id, mark: 0})));
+    dispatch({
+      type: actionType.NULL_ALL,
+    });
+  };
+};
 export const classEdit = (
   class_id,
   class_name,
@@ -40,6 +51,17 @@ export const classEdit = (
     });
     dispatch({
       type: actionType.EDIT,
+    });
+  };
+};
+export const markEdit = (trainee_id, subject_id) => {
+  return (dispatch) => {
+    firebaseConfigure
+      .database()
+      .ref(`/mark/${trainee_id}`)
+      .update(subject_id.map((subject_id) => ({subject_id, mark: 0})));
+    dispatch({
+      type: actionType.NULL_ALL,
     });
   };
 };

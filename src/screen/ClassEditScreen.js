@@ -3,7 +3,7 @@ import {View, StyleSheet, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import {Icon, Button} from 'react-native-elements';
 import ClassForm from '../components/PlaceInput/ClassForm';
-import {valueChange, classEdit} from '../store/actions/ClassAction';
+import {valueChange, classEdit, markEdit} from '../store/actions/ClassAction';
 import _ from 'lodash';
 import validation from '../utility/validation';
 class ClassEditScreen extends Component {
@@ -25,6 +25,10 @@ class ClassEditScreen extends Component {
         this.props.trainee_id,
         this.props.subject_id,
       );
+      _.forEach(this.props.trainee_id, (trainee_id) => {
+        console.log(trainee_id, this.props.subject_id);
+        this.props.markEdit(trainee_id, this.props.subject_id);
+      });
       this.props.navigation.goBack();
     } else {
       Alert.alert('Invalid Infromation');
@@ -108,6 +112,6 @@ const mapStateToProps = (state, ownProps) => {
   } = state.ClassReducer;
   return {class_id, class_name, trainer_id, trainee_id, subject_id, trainee};
 };
-export default connect(mapStateToProps, {valueChange, classEdit})(
+export default connect(mapStateToProps, {valueChange, classEdit, markEdit})(
   ClassEditScreen,
 );

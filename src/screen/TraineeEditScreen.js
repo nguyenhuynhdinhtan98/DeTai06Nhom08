@@ -3,7 +3,11 @@ import {View, StyleSheet, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import {Icon, Button} from 'react-native-elements';
 import TraineeForm from '../components/PlaceInput/TraineeForm';
-import {valueChange, traineeEdit} from '../store/actions/TraineeAction';
+import {
+  valueChange,
+  traineeEdit,
+  getAllMarkTrainee,
+} from '../store/actions/TraineeAction';
 import _ from 'lodash';
 import TableEditScreen from '../components/Table/TableEditScreen';
 import validation from '../utility/validation';
@@ -13,6 +17,7 @@ class TraineeEditScreen extends Component {
     _.each(this.props.route.params.item, (value, prop) => {
       this.props.valueChange({prop, value});
     });
+    this.props.getAllMarkTrainee(this.props.route.params.item.trainee_id);
   }
 
   handldeEditTrainee = () => {
@@ -48,7 +53,7 @@ class TraineeEditScreen extends Component {
           />
         </View>
         <View style={styles.tableContainer}>
-          <TableEditScreen value={[]} />
+          <TableEditScreen value={this.props.mark} />
         </View>
       </View>
     );
@@ -77,9 +82,17 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const {trainee_id, trainee_name, date_of_birth, skill} = state.TraineeReducer;
-  return {trainee_id, trainee_name, date_of_birth, skill};
+  const {
+    trainee_id,
+    trainee_name,
+    date_of_birth,
+    skill,
+    mark,
+  } = state.TraineeReducer;
+  return {trainee_id, trainee_name, date_of_birth, skill, mark};
 };
-export default connect(mapStateToProps, {valueChange, traineeEdit})(
-  TraineeEditScreen,
-);
+export default connect(mapStateToProps, {
+  valueChange,
+  traineeEdit,
+  getAllMarkTrainee,
+})(TraineeEditScreen);

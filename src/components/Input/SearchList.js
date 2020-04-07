@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   searchBar: {
     backgroundColor: '#fff',
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 2,
     borderColor: '#000',
     marginLeft: 20,
     marginRight: 20,

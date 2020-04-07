@@ -44,7 +44,7 @@ export const getAllSubject = () => {
 };
 export const subjectEdit = (subject_id, subject_name) => {
   return (dispatch) => {
-    firebaseConfigure.database().ref(`/subject/${subject_id}`).set({
+    firebaseConfigure.database().ref(`/subject/${subject_id}`).update({
       subject_name,
     });
     dispatch({
