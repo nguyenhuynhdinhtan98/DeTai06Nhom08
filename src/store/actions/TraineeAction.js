@@ -61,21 +61,10 @@ export const getAllMarkTrainee = (trainee_id) => {
     firebaseConfigure
       .database()
       .ref(`/mark/${trainee_id}`)
-      .on('value', async (snapshot) => {
-        let arr = [];
-        snapshot.val().forEach((element) => {
-          firebaseConfigure
-            .database()
-            .ref(`/subject/${element.subject_id}`)
-            .on('value', (snapshot) => {
-              const subject = snapshot.val();
-              arr.push({...element, subject});
-            });
-        });
-        console.log(arr);
+      .on('value', (snapshot) => {
         dispatch({
           type: actionType.GET_ALL_MARK,
-          payload: arr,
+          payload: snapshot.val(),
         });
       });
   };

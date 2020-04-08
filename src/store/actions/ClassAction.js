@@ -59,7 +59,12 @@ export const markEdit = (trainee_id, subject_id) => {
     firebaseConfigure
       .database()
       .ref(`/mark/${trainee_id}`)
-      .update(subject_id.map((subject_id) => ({subject_id, mark: 0})));
+      .update(
+        subject_id.map((subject_id) => ({
+          ...subject_id,
+          mark: 0,
+        })),
+      );
     dispatch({
       type: actionType.NULL_ALL,
     });

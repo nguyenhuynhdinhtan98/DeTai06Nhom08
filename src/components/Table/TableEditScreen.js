@@ -9,12 +9,9 @@ import {
 } from 'react-native';
 import {getAllMarkTrainee} from '../../store/actions/TraineeAction';
 import {connect} from 'react-redux';
-import {Icon} from 'react-native-elements';
 import Modal from 'react-native-modal';
+import {Icon} from 'react-native-elements';
 class TableEditScreen extends React.Component {
-  componentDidMount() {
-    this.props.getAllMarkTrainee(this.props.trainee_id);
-  }
   showModal = () => {
     return (
       <Modal isVisible={true}>
@@ -40,19 +37,17 @@ class TableEditScreen extends React.Component {
             renderItem={({item}) => (
               <View style={styles.containerItemList}>
                 <Text style={[styles.textContentList, {flex: 2}]}>
-                  {item.subject.subject_name}
+                  {item.subject_name}
                 </Text>
                 <Text style={[styles.textContentList, {flex: 1}]}>
                   {item.mark}
                 </Text>
                 <Text style={[styles.textContentList, {flex: 1}]}>
-                  <Text>+</Text>
                   {/* <Icon
-                    raised
-                    name="heartbeat"
-                    type="font-awesome"
-                    color="#f50"
-                    onPress={() => console.log('hello')}
+                    reverse
+                    name="ios-american-football"
+                    type="ionicon"
+                    color="#517fa4"
                   /> */}
                 </Text>
               </View>
@@ -91,6 +86,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     marginTop: 5,
+  },
+  styleIcon: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    justifyContent: 'center',
   },
 });
 

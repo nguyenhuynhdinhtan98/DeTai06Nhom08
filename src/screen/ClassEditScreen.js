@@ -14,18 +14,18 @@ class ClassEditScreen extends Component {
     });
   }
 
-  handldeEditClass = () => {
-    const checkName = validation('minLength', this.props.class_name);
-    const checkTrainerId = validation('notEmpty', this.props.trainer_id);
+  handldeEditClass = async () => {
+    const checkName = await validation('minLength', this.props.class_name);
+    const checkTrainerId = await validation('notEmpty', this.props.trainer_id);
     if (checkName && checkTrainerId) {
-      this.props.classEdit(
+      await this.props.classEdit(
         this.props.class_id,
         this.props.class_name,
         this.props.trainer_id,
         this.props.trainee_id,
-        this.props.subject_id,
+        this.props.subject_id.map((item) => item.subject_id),
       );
-      _.forEach(this.props.trainee_id, (trainee_id) => {
+      await _.forEach(this.props.trainee_id, (trainee_id) => {
         console.log(trainee_id, this.props.subject_id);
         this.props.markEdit(trainee_id, this.props.subject_id);
       });

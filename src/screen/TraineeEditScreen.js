@@ -7,6 +7,7 @@ import {
   valueChange,
   traineeEdit,
   getAllMarkTrainee,
+  getSubjectName,
 } from '../store/actions/TraineeAction';
 import _ from 'lodash';
 import TableEditScreen from '../components/Table/TableEditScreen';
@@ -17,6 +18,7 @@ class TraineeEditScreen extends Component {
     await _.each(this.props.route.params.item, (value, prop) => {
       this.props.valueChange({prop, value});
     });
+    await this.props.getAllMarkTrainee(this.props.route.params.item.trainee_id);
   }
 
   handldeEditTrainee = () => {
@@ -83,11 +85,18 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const {trainee_id, trainee_name, date_of_birth, skill} = state.TraineeReducer;
-  return {trainee_id, trainee_name, date_of_birth, skill};
+  const {
+    trainee_id,
+    trainee_name,
+    date_of_birth,
+    skill,
+    mark,
+  } = state.TraineeReducer;
+  return {trainee_id, trainee_name, date_of_birth, skill, mark};
 };
 export default connect(mapStateToProps, {
   valueChange,
   traineeEdit,
   getAllMarkTrainee,
+  getSubjectName,
 })(TraineeEditScreen);
