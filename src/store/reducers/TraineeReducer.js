@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   error: '',
   search: '',
   trainee: [],
+  subject: [],
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -18,6 +19,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, trainee: action.payload};
     case actionType.GET_ALL_MARK:
       return {...state, mark: action.payload};
+    case actionType.GET_ALL_SUBJECT:
+      return {...state, subject: action.payload};
     case actionType.EDIT:
       return state;
     case actionType.NULL_ALL:

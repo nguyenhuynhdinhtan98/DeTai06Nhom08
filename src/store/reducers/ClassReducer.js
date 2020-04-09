@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   subject: [],
   mark: [],
   trainee_exists: [],
+  trainee_not_exists: [],
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -58,6 +59,8 @@ export default (state = INITIAL_STATE, action) => {
         subject_id: [],
         error: '',
         search: '',
+        trainee_exists: [],
+        trainee_not_exists: [],
       };
     default:
       return state;

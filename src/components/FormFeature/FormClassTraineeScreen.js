@@ -5,7 +5,7 @@ import {Icon, Button} from 'react-native-elements';
 import SearchList from '../Input/SearchList';
 import {searchFilterTrainee} from '../../functions/functions';
 import {valueChange} from '../../store/actions/ClassAction';
-import ListAddSubject from '../PlaceList/ListAddTrainee';
+import ListAddTrainee from '../PlaceList/ListAddTrainee';
 class FormClassTraineeScreen extends Component {
   render() {
     return (
@@ -19,11 +19,14 @@ class FormClassTraineeScreen extends Component {
           />
         </View>
         <View style={styles.containerList}>
-          <ListAddSubject
+          <ListAddTrainee
             data={
               !this.props.search
-                ? this.props.trainee
-                : searchFilterTrainee(this.props.trainee, this.props.search)
+                ? this.props.trainee_exists
+                : searchFilterTrainee(
+                    this.props.trainee_exists,
+                    this.props.search,
+                  )
             }
             search={this.props.search}
           />
@@ -79,6 +82,7 @@ const mapStateToProps = (state, ownProps) => {
     search: state.ClassReducer.search,
     trainee: state.ClassReducer.trainee,
     class: state.ClassReducer.class,
+    trainee_exists: state.ClassReducer.trainee_exists,
   };
 };
 export default connect(mapStateToProps, {valueChange})(FormClassTraineeScreen);

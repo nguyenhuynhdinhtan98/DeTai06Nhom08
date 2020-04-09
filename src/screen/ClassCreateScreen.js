@@ -8,13 +8,33 @@ import {
   classCreate,
   markCreate,
   removeInput,
+  valueChange,
 } from '../store/actions/ClassAction';
 import validation from '../utility/validation';
 class ClassCreateScreen extends Component {
   componentDidMount() {
     console.disableYellowBox = true;
     this.props.removeInput();
+    this.filterTrainee();
   }
+  filterTrainee = async () => {
+    let arr = [];
+    let array = [];
+    await this.props.class.forEach((o1) => {
+      if (o1.trainee_id !== undefined) {
+        o1.trainee_id.forEach((o2) => arr.push(o2));
+      }
+    });
+    await this.props.trainee.forEach((e1) => {
+      if (arr.includes(e1.trainee_id) === false) {
+        array.push(e1);
+      }
+    });
+    await this.props.valueChange({
+      prop: 'trainee_exists',
+      value: array,
+    });
+  };
   handldeCreateClass = () => {
     const checkName = validation('minLength', this.props.class_name);
     const checkTrainerId = validation('notEmpty', this.props.trainer_id);
@@ -106,15 +126,21 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const {
-    class_name,
-    trainer_id,
-    trainee_id,
-    subject_id,
-    trainee,
-  } = state.ClassReducer;
-  return {class_name, trainer_id, trainee_id, subject_id, trainee};
+  return {
+    class_id: state.ClassReducer.class_id,
+    class_name: state.ClassReducer.class_name,
+    trainer_id: state.ClassReducer.trainer_id,
+    trainee_id: state.ClassReducer.trainee_id,
+    subject_id: state.ClassReducer.subject_id,
+    trainee: state.ClassReducer.trainee,
+    class: state.ClassReducer.class,
+    mark: state.ClassReducer.mark,
+    trainee_not_exists: state.ClassReducer.trainee_not_exists,
+  };
 };
-export default connect(mapStateToProps, {classCreate, markCreate, removeInput})(
-  ClassCreateScreen,
-);
+export default connect(mapStateToProps, {
+  classCreate,
+  markCreate,
+  removeInput,
+  valueChange,
+})(ClassCreateScreen);

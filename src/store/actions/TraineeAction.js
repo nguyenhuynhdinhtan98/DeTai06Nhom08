@@ -56,11 +56,34 @@ export const traineeEdit = (trainee_id, trainee_name, date_of_birth, skill) => {
     });
   };
 };
+export const getAllSubject = () => {
+  return (dispatch) => {
+    firebaseConfigure
+      .database()
+      .ref(`/subject`)
+      .orderByChild('subject_name')
+      .on('value', (snapshot) => {
+        let array = [];
+        snapshot.forEach((child) => {
+          array.push({
+            ...child.val(),
+            subject_id: child.key,
+          });
+        });
+        dispatch({
+          type: actionType.GET_ALL_SUBJECT,
+          payload: array,
+        });
+      });
+  };
+};
+
 export const getAllMarkTrainee = (trainee_id) => {
   return (dispatch) => {
     firebaseConfigure
       .database()
-      .ref(`/mark/${trainee_id}`)
+      .ref(`/mark`)
+      .child(trainee_id)
       .on('value', (snapshot) => {
         dispatch({
           type: actionType.GET_ALL_MARK,

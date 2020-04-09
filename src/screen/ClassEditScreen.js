@@ -13,28 +13,32 @@ import {
 import _ from 'lodash';
 import validation from '../utility/validation';
 class ClassEditScreen extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     console.disableYellowBox = true;
-    this.props.removeInput();
+    await this.props.removeInput();
+    await this.filterTrainee();
     _.each(this.props.route.params.item, (value, prop) => {
       this.props.valueChange({prop, value});
     });
   }
-  hideTraineeExist = (a, b) => {
+
+  filterTrainee = async () => {
     let arr = [];
-    a.forEach((e1) => {
-      if (typeof e1.trainee_id !== 'undefined') {
-        b.forEach(async (e2) => {
-          console.log(e1.trainee_id.includes(e2.trainee_id));
-          console.log(e1.trainee_id);
-          console.log(e2.trainee_id);
-          if (e1.trainee_id.includes(e2.trainee_id) === false) {
-            arr.push(e2);
-          }
-        });
+    let array = [];
+    await this.props.class.forEach((o1) => {
+      if (o1.trainee_id !== undefined) {
+        o1.trainee_id.forEach((o2) => arr.push(o2));
       }
     });
-    return arr;
+    await this.props.trainee.forEach((e1) => {
+      if (arr.includes(e1.trainee_id) === false) {
+        array.push(e1);
+      }
+    });
+    await this.props.valueChange({
+      prop: 'trainee_not_exists',
+      value: [...array],
+    });
   };
   handldeEditClass = () => {
     const checkName = validation('minLength', this.props.class_name);
@@ -50,13 +54,13 @@ class ClassEditScreen extends Component {
       _.forEach(this.props.trainee_id, async (trainee_id) => {
         await this.props.markEdit(trainee_id, this.props.subject_id);
       });
-
       this.props.navigation.goBack();
     } else {
       Alert.alert('Invalid Infromation');
     }
   };
   render() {
+    console.log(this.props.trainee_exists);
     return (
       <View style={styles.container}>
         <View style={styles.inputForm}>
@@ -133,6 +137,7 @@ const mapStateToProps = (state, ownProps) => {
     trainee: state.ClassReducer.trainee,
     class: state.ClassReducer.class,
     mark: state.ClassReducer.mark,
+    trainee_not_exists: state.ClassReducer.trainee_not_exists,
   };
 };
 export default connect(mapStateToProps, {

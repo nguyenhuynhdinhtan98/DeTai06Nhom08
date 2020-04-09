@@ -23,6 +23,7 @@ class TableEditScreen extends React.Component {
     );
   };
   render() {
+    // console.log(this.props.mark);
     return (
       <>
         <View style={styles.headerList}>
@@ -32,23 +33,30 @@ class TableEditScreen extends React.Component {
         </View>
         <View style={styles.listRow}>
           <FlatList
-            data={this.props.mark}
+            data={this.props.data}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => (
               <View style={styles.containerItemList}>
-                <Text style={[styles.textContentList, {flex: 2}]}>
+                <Text
+                  style={[
+                    styles.textContentList,
+                    {flex: 2, justifyContent: 'center'},
+                  ]}>
                   {item.subject_name}
                 </Text>
                 <Text style={[styles.textContentList, {flex: 1}]}>
                   {item.mark}
                 </Text>
                 <Text style={[styles.textContentList, {flex: 1}]}>
-                  {/* <Icon
-                    reverse
-                    name="ios-american-football"
-                    type="ionicon"
-                    color="#517fa4"
-                  /> */}
+                  <Text
+                    style={{
+                      fontSize: 25,
+                      fontWeight: 'bold',
+
+                      justifyContent: 'center',
+                    }}>
+                    +
+                  </Text>
                 </Text>
               </View>
             )}

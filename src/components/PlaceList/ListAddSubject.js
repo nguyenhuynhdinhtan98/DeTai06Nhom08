@@ -55,7 +55,7 @@ class ListAddSubject extends Component {
   }
 }
 const mapStateToProps = (state, ownProps) => {
-  const {subject_id, subject} = state.ClassReducer;
-  return {subject_id, subject};
+  const {subject_id, subject, trainee_exists} = state.ClassReducer;
+  return {subject_id, subject, trainee_exists};
 };
 export default connect(mapStateToProps, {valueChange})(ListAddSubject);

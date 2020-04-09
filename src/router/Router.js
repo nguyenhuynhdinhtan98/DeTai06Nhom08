@@ -27,6 +27,14 @@ export default class Router extends Component {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name="ManageTraineeScreen"
+            component={ManageTraineeScreen}
+            options={{
+              title: 'Manage Trainee',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
             name="HomeScreen"
             component={HomeScreen}
             options={{
@@ -38,14 +46,6 @@ export default class Router extends Component {
             component={LoginScreen}
             options={{
               headerShown: false, //hide header
-            }}
-          />
-          <Stack.Screen
-            name="ManageTraineeScreen"
-            component={ManageTraineeScreen}
-            options={{
-              title: 'Manage Trainee',
-              headerTitleAlign: 'center',
             }}
           />
 
