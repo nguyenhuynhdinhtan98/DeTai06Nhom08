@@ -5,11 +5,11 @@ import {connect} from 'react-redux';
 import {Card, CardItem} from 'native-base';
 import {valueChange} from '../../store/actions/ClassAction';
 class ListAddSubject extends Component {
-  handleGetCheckedToList = (subject) => {
+  handleGetCheckedToList = (subject_id) => {
     let process;
-    !this.props.subject_id.includes(subject)
-      ? (process = [...this.props.subject_id, subject])
-      : (process = this.props.subject_id.filter((item) => item !== subject));
+    !this.props.subject_id.includes(subject_id)
+      ? (process = [...this.props.subject_id, subject_id])
+      : (process = this.props.subject_id.filter((item) => item !== subject_id));
     this.props.valueChange({
       prop: 'subject_id',
       value: process,
@@ -37,12 +37,12 @@ class ListAddSubject extends Component {
                     center
                     iconLeft
                     title="Added"
-                    checked={this.props.subject_id.includes(item)}
+                    checked={this.props.subject_id.includes(item.subject_id)}
                     containerStyle={{
                       backgroundColor: 'transparent',
                       borderWidth: 0,
                     }}
-                    onPress={() => this.handleGetCheckedToList(item)}
+                    onPress={() => this.handleGetCheckedToList(item.subject_id)}
                   />
                 </View>
               </View>

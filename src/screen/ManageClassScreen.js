@@ -7,6 +7,7 @@ import {
   getAllTrainee,
   getAllSubject,
   getAllTrainer,
+  getAllMark,
 } from '../store/actions/ClassAction';
 class ManageClassScreen extends Component {
   componentDidMount() {
@@ -15,6 +16,7 @@ class ManageClassScreen extends Component {
     this.props.getAllTrainee();
     this.props.getAllSubject();
     this.props.getAllTrainer();
+    this.props.getAllMark();
   }
   render() {
     return (
@@ -34,4 +36,5 @@ export default connect(null, {
   getAllTrainee,
   getAllTrainer,
   getAllSubject,
+  getAllMark,
 })(ManageClassScreen);

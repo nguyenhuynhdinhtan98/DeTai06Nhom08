@@ -24,6 +24,7 @@ export const classCreate = (class_name, trainer_id, trainee_id, subject_id) => {
     });
   };
 };
+
 export const markCreate = (trainee_id, subject_id) => {
   return (dispatch) => {
     firebaseConfigure
@@ -59,12 +60,7 @@ export const markEdit = (trainee_id, subject_id) => {
     firebaseConfigure
       .database()
       .ref(`/mark/${trainee_id}`)
-      .update(
-        subject_id.map((subject_id) => ({
-          ...subject_id,
-          mark: 0,
-        })),
-      );
+      .update(subject_id.map((subject_id) => ({subject_id, mark: 0})));
     dispatch({
       type: actionType.NULL_ALL,
     });
@@ -154,7 +150,19 @@ export const getAllSubject = () => {
       });
   };
 };
-
+export const getAllMark = () => {
+  return (dispatch) => {
+    firebaseConfigure
+      .database()
+      .ref(`/mark`)
+      .on('value', (snapshot) => {
+        dispatch({
+          type: actionType.GET_ALL_MARK,
+          payload: Object.keys(snapshot.val()),
+        });
+      });
+  };
+};
 export const removeInput = () => {
   return (dispatch) => {
     dispatch({

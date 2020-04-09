@@ -15,19 +15,18 @@ class ClassCreateScreen extends Component {
     console.disableYellowBox = true;
     this.props.removeInput();
   }
-  handldeCreateClass = async () => {
-    const checkName = await validation('minLength', this.props.class_name);
-    const checkTrainerId = await validation('notEmpty', this.props.trainer_id);
+  handldeCreateClass = () => {
+    const checkName = validation('minLength', this.props.class_name);
+    const checkTrainerId = validation('notEmpty', this.props.trainer_id);
     if (checkName && checkTrainerId) {
-      await this.props.classCreate(
+      this.props.classCreate(
         this.props.class_name,
         this.props.trainer_id,
         this.props.trainee_id,
-        this.props.subject_id.map((item) => item.subject_id),
+        this.props.subject_id,
       );
-      await _.forEach(this.props.trainee_id, (trainee_id) => {
-        console.log(trainee_id, this.props.subject_id);
-        this.props.markEdit(trainee_id, this.props.subject_id);
+      _.forEach(this.props.trainee_id, async (trainee_id) => {
+        await this.props.markCreate(trainee_id, this.props.subject_id);
       });
       Alert.alert('Create Success');
     } else {

@@ -11,6 +11,8 @@ const INITIAL_STATE = {
   trainee: [],
   trainer: [],
   subject: [],
+  mark: [],
+  trainee_exists: [],
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -38,6 +40,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         subject: action.payload,
+      };
+    case actionType.GET_ALL_MARK:
+      return {
+        ...state,
+        mark: action.payload,
       };
     case actionType.EDIT:
       return state;

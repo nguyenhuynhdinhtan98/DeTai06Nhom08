@@ -3,32 +3,54 @@ import {View, StyleSheet, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import {Icon, Button} from 'react-native-elements';
 import ClassForm from '../components/PlaceInput/ClassForm';
-import {valueChange, classEdit, markEdit} from '../store/actions/ClassAction';
+import {
+  valueChange,
+  classEdit,
+  markEdit,
+  removeInput,
+  getAllMark,
+} from '../store/actions/ClassAction';
 import _ from 'lodash';
 import validation from '../utility/validation';
 class ClassEditScreen extends Component {
   componentDidMount() {
     console.disableYellowBox = true;
+    this.props.removeInput();
     _.each(this.props.route.params.item, (value, prop) => {
       this.props.valueChange({prop, value});
     });
   }
-
-  handldeEditClass = async () => {
-    const checkName = await validation('minLength', this.props.class_name);
-    const checkTrainerId = await validation('notEmpty', this.props.trainer_id);
+  hideTraineeExist = (a, b) => {
+    let arr = [];
+    a.forEach((e1) => {
+      if (typeof e1.trainee_id !== 'undefined') {
+        b.forEach(async (e2) => {
+          console.log(e1.trainee_id.includes(e2.trainee_id));
+          console.log(e1.trainee_id);
+          console.log(e2.trainee_id);
+          if (e1.trainee_id.includes(e2.trainee_id) === false) {
+            arr.push(e2);
+          }
+        });
+      }
+    });
+    return arr;
+  };
+  handldeEditClass = () => {
+    const checkName = validation('minLength', this.props.class_name);
+    const checkTrainerId = validation('notEmpty', this.props.trainer_id);
     if (checkName && checkTrainerId) {
-      await this.props.classEdit(
+      this.props.classEdit(
         this.props.class_id,
         this.props.class_name,
         this.props.trainer_id,
         this.props.trainee_id,
-        this.props.subject_id.map((item) => item.subject_id),
+        this.props.subject_id,
       );
-      await _.forEach(this.props.trainee_id, (trainee_id) => {
-        console.log(trainee_id, this.props.subject_id);
-        this.props.markEdit(trainee_id, this.props.subject_id);
+      _.forEach(this.props.trainee_id, async (trainee_id) => {
+        await this.props.markEdit(trainee_id, this.props.subject_id);
       });
+
       this.props.navigation.goBack();
     } else {
       Alert.alert('Invalid Infromation');
@@ -102,16 +124,21 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const {
-    class_id,
-    class_name,
-    trainer_id,
-    trainee_id,
-    subject_id,
-    trainee,
-  } = state.ClassReducer;
-  return {class_id, class_name, trainer_id, trainee_id, subject_id, trainee};
+  return {
+    class_id: state.ClassReducer.class_id,
+    class_name: state.ClassReducer.class_name,
+    trainer_id: state.ClassReducer.trainer_id,
+    trainee_id: state.ClassReducer.trainee_id,
+    subject_id: state.ClassReducer.subject_id,
+    trainee: state.ClassReducer.trainee,
+    class: state.ClassReducer.class,
+    mark: state.ClassReducer.mark,
+  };
 };
-export default connect(mapStateToProps, {valueChange, classEdit, markEdit})(
-  ClassEditScreen,
-);
+export default connect(mapStateToProps, {
+  valueChange,
+  classEdit,
+  markEdit,
+  removeInput,
+  getAllMark,
+})(ClassEditScreen);
