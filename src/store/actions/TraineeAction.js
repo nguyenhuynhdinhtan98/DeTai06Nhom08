@@ -93,13 +93,9 @@ export const getAllMarkTrainee = (trainee_id) => {
   };
 };
 
-export const editMark = (trainee_id, subject_id, mark) => {
+export const editMark = (trainee_id, mark) => {
   return (dispatch) => {
-    firebaseConfigure
-      .database()
-      .ref(`/mark/${trainee_id}`)
-      .equalTo(subject_id)
-      .set(mark);
+    firebaseConfigure.database().ref(`/mark/${trainee_id}`).set(mark);
     dispatch({
       type: actionType.NULL_ALL,
     });

@@ -3,13 +3,14 @@ const INITIAL_STATE = {
   trainee_id: '',
   trainee_name: '',
   date_of_birth: '',
-  mark: [],
   skill: '',
   mark_subject: 0,
   error: '',
   search: '',
   trainee: [],
   subject: [],
+  mark: [],
+  subject_item: {value: {}, isVisible: false},
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {

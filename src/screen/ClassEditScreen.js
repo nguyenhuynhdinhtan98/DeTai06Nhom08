@@ -60,7 +60,6 @@ class ClassEditScreen extends Component {
     }
   };
   render() {
-    console.log(this.props.trainee_exists);
     return (
       <View style={styles.container}>
         <View style={styles.inputForm}>

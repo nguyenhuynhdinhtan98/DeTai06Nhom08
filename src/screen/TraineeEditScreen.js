@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Alert} from 'react-native';
 import {connect} from 'react-redux';
-import {Icon, Button} from 'react-native-elements';
+import {Icon, Button, Text, Input} from 'react-native-elements';
+import _ from 'lodash';
+import ModalAddMarkTrainee from '../components/Modal/ModalAddMarkTrainee';
 import TraineeForm from '../components/PlaceInput/TraineeForm';
 import {
   valueChange,
   traineeEdit,
+  editMark,
   getAllMarkTrainee,
   getSubjectName,
   getAllSubject,
 } from '../store/actions/TraineeAction';
-import _ from 'lodash';
 import TableEditScreen from '../components/Table/TableEditScreen';
 import validation from '../utility/validation';
 class TraineeEditScreen extends Component {
@@ -28,7 +30,7 @@ class TraineeEditScreen extends Component {
       if (this.props.mark !== null) {
         this.props.mark.forEach((e2) => {
           if (e1.subject_id === e2.subject_id) {
-            arr.push(Object.assign(e1, e2));
+            arr.push(Object.assign(e1, e2)); //connect table trainee and table mark
           }
         });
       }
@@ -46,14 +48,14 @@ class TraineeEditScreen extends Component {
         this.props.date_of_birth,
         this.props.skill,
       );
+      this.props.editMark(this.props.trainee_id, this.props.mark);
       this.props.navigation.goBack();
     } else {
       Alert.alert('Invalid Infromation');
     }
   };
-  render() {
-    // console.log(this.props.subject);
 
+  render() {
     return (
       <View style={styles.container}>
         <View style={styles.inputForm}>
@@ -72,6 +74,7 @@ class TraineeEditScreen extends Component {
         <View style={styles.tableContainer}>
           <TableEditScreen data={this.collectionTwoObject()} />
         </View>
+        <ModalAddMarkTrainee />
       </View>
     );
   }
@@ -105,13 +108,27 @@ const mapStateToProps = (state, ownProps) => {
     date_of_birth,
     skill,
     mark,
+    error,
     subject,
+    subject_item,
+    allMark,
   } = state.TraineeReducer;
-  return {trainee_id, trainee_name, date_of_birth, skill, mark, subject};
+  return {
+    trainee_id,
+    trainee_name,
+    date_of_birth,
+    skill,
+    mark,
+    error,
+    subject,
+    subject_item,
+    allMark,
+  };
 };
 export default connect(mapStateToProps, {
   valueChange,
   traineeEdit,
+  editMark,
   getAllMarkTrainee,
   getSubjectName,
   getAllSubject,
