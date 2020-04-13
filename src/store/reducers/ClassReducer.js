@@ -49,6 +49,8 @@ export default (state = INITIAL_STATE, action) => {
       };
     case actionType.EDIT:
       return state;
+    case actionType.DELETE:
+      return state;
     case actionType.NULL_ALL:
       return {
         ...state,

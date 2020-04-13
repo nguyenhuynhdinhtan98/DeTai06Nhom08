@@ -24,6 +24,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, subject: action.payload};
     case actionType.EDIT:
       return state;
+    case actionType.DELETE:
+      return state;
     case actionType.NULL_ALL:
       return {
         ...state,

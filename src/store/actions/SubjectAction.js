@@ -1,5 +1,6 @@
 import {actionType} from '../contants/Contant';
 import firebaseConfigure from '../../config/configureFirebase';
+
 import _ from 'lodash';
 export const valueChange = ({prop, value}) => {
   return {
@@ -21,6 +22,7 @@ export const subjectCreate = (subject_name) => {
     });
   };
 };
+
 export const getAllSubject = () => {
   return (dispatch) => {
     firebaseConfigure

@@ -10,7 +10,6 @@ export const valueChange = ({prop, value}) => {
     },
   };
 };
-
 export const traineeCreate = (trainee_name, date_of_birth, skill) => {
   return async (dispatch) => {
     firebaseConfigure.database().ref(`/trainee/`).push({
@@ -93,6 +92,27 @@ export const getAllMarkTrainee = (trainee_id) => {
   };
 };
 
+export const checkTraineeInMark = (trainee_id) => {
+  // firebaseConfigure
+  //   .database()
+  //   .ref(`/mark/${trainee_id}`)
+  //   .once('value', (snapshot) => console.log(snapshot));
+  firebaseConfigure
+    .database()
+    .ref('/class')
+    .once('value')
+    .then((snapshot) =>
+      Object.values(snapshot.val()).forEach((item) => {
+        if (item.trainee_id !== undefined) {
+          if (item.trainee_id.includes(trainee_id)) {
+            trainee;
+          } else {
+            console.log('Fail');
+          }
+        }
+      }),
+    );
+};
 export const editMark = (trainee_id, mark) => {
   return (dispatch) => {
     firebaseConfigure.database().ref(`/mark/${trainee_id}`).set(mark);

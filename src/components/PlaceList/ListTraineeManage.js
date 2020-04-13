@@ -1,8 +1,21 @@
 import React, {useState} from 'react';
-import {Text, FlatList, TouchableOpacity} from 'react-native';
+import {Text, FlatList, TouchableOpacity, Alert} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {Card, CardItem} from 'native-base';
+import firebaseConfigure from '../../config/configureFirebase';
 const ListTraineeManage = ({data, navigation}) => {
+  traineeRemove = (trainee) => {};
+  confirmRemove = (trainee) => {
+    Alert.alert(
+      `Yout want remove ${trainee.trainee_name} ?`,
+      ' ',
+      [
+        {text: 'No', style: 'cancel'},
+        {text: 'Yes', onPress: () => traineeRemove(trainee)},
+      ],
+      {cancelable: false},
+    );
+  };
   return (
     <FlatList
       data={data}
@@ -19,7 +32,13 @@ const ListTraineeManage = ({data, navigation}) => {
                 marginRight: 5,
               }}>
               <Text>{item.trainee_name}</Text>
-              <Icon name="times" type="font-awesome" color="black" size={20} />
+              <Icon
+                name="times"
+                type="font-awesome"
+                color="black"
+                size={20}
+                onPress={() => confirmRemove(item)}
+              />
             </CardItem>
           </Card>
         </TouchableOpacity>

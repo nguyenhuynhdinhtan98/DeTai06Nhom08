@@ -24,18 +24,6 @@ export const classCreate = (class_name, trainer_id, trainee_id, subject_id) => {
     });
   };
 };
-
-export const markCreate = (trainee_id, subject_id) => {
-  return (dispatch) => {
-    firebaseConfigure
-      .database()
-      .ref(`/mark/${trainee_id}`)
-      .set(subject_id.map((subject_id) => ({subject_id, mark: 0})));
-    dispatch({
-      type: actionType.NULL_ALL,
-    });
-  };
-};
 export const classEdit = (
   class_id,
   class_name,
@@ -55,6 +43,21 @@ export const classEdit = (
     });
   };
 };
+export const classRemove = (class_id) => {
+  firebaseConfigure.database().ref(`/class/${class_id}`).remove();
+};
+export const markCreate = (trainee_id, subject_id) => {
+  return (dispatch) => {
+    firebaseConfigure
+      .database()
+      .ref(`/mark/${trainee_id}`)
+      .set(subject_id.map((subject_id) => ({subject_id, mark: 0})));
+    dispatch({
+      type: actionType.NULL_ALL,
+    });
+  };
+};
+
 export const markEdit = (trainee_id, subject_id) => {
   return (dispatch) => {
     firebaseConfigure
@@ -66,6 +69,7 @@ export const markEdit = (trainee_id, subject_id) => {
     });
   };
 };
+
 export const getAllClass = () => {
   return (dispatch) => {
     firebaseConfigure
