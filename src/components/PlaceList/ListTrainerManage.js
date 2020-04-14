@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import {Text, FlatList, TouchableOpacity, Alert} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {Card, CardItem} from 'native-base';
+import {connect} from 'react-redux';
 import firebaseConfigure from '../../config/configureFirebase';
+import {trainerRemove} from '../../store/actions/TrainerAction';
 const ListTrainerManage = ({data, navigation}) => {
-  trainerRemove = (trainer) => {
+  trainerRemoveItem = (trainer) => {
     firebaseConfigure
       .database()
       .ref('/class')
@@ -12,10 +14,7 @@ const ListTrainerManage = ({data, navigation}) => {
       .equalTo(trainer.trainer_id)
       .on('value', (snapshot) => {
         if (snapshot.val() === null) {
-          firebaseConfigure
-            .database()
-            .ref(`/trainer/${trainer.trainer_id}`)
-            .remove();
+          trainerRemove(trainer.trainer_id);
         } else {
           Alert.alert(
             `Subject ${trainer.trainer_name} is existing on Class`,
@@ -30,7 +29,7 @@ const ListTrainerManage = ({data, navigation}) => {
       ' ',
       [
         {text: 'No', style: 'cancel'},
-        {text: 'Yes', onPress: () => trainerRemove(item)},
+        {text: 'Yes', onPress: () => trainerRemoveItem(item)},
       ],
       {cancelable: false},
     );
@@ -67,4 +66,4 @@ const ListTrainerManage = ({data, navigation}) => {
   );
 };
 
-export default ListTrainerManage;
+export default connect(null, {trainerRemove})(ListTrainerManage);

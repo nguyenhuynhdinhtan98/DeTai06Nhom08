@@ -91,7 +91,9 @@ export const getAllMarkTrainee = (trainee_id) => {
       });
   };
 };
-
+export const traineeRemove = (trainee_id) => {
+  firebaseConfigure.database().ref(`/trainee/${trainee_id}`).remove();
+};
 export const checkTraineeInMark = (trainee_id) => {
   // firebaseConfigure
   //   .database()

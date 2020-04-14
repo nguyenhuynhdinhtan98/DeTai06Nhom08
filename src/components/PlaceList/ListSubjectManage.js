@@ -1,17 +1,41 @@
 import React, {useState} from 'react';
 import {Text, FlatList, TouchableOpacity, Alert} from 'react-native';
 import {Icon} from 'react-native-elements';
+import {connect} from 'react-redux';
 import {Card, CardItem} from 'native-base';
 import firebaseConfigure from '../../config/configureFirebase';
+import {subjectRemove} from '../../store/actions/SubjectAction';
 const ListSubjectManage = ({data, navigation}) => {
-  subjectRemove = (subject) => {};
+  subjectRemoveItem = (subject) => {
+    let arr = [];
+    firebaseConfigure
+      .database()
+      .ref('/class')
+
+      .on('value', (snapshot) => {
+        Object.values(snapshot.val()).forEach((item) => {
+          if (item.subject_id !== undefined) {
+            arr.push(...item.subject_id);
+          }
+        });
+      });
+    if (arr.includes(subject.subject_id)) {
+      Alert.alert(
+        'Subject is existing on Class',
+        'Please remove subject on Class',
+      );
+    } else {
+      console.log('ok');
+      subjectRemove(subject.subject_id);
+    }
+  };
   confirmRemove = (subject) => {
     Alert.alert(
       `Yout want remove ${subject.subject_name} ?`,
       ' ',
       [
         {text: 'No', style: 'cancel'},
-        {text: 'Yes', onPress: () => subjectRemove(subject)},
+        {text: 'Yes', onPress: () => subjectRemoveItem(subject)},
       ],
       {cancelable: false},
     );
@@ -47,5 +71,4 @@ const ListSubjectManage = ({data, navigation}) => {
     />
   );
 };
-
-export default ListSubjectManage;
+export default connect(null, {subjectRemove})(ListSubjectManage);

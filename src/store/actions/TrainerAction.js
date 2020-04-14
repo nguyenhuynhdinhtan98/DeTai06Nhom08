@@ -55,6 +55,10 @@ export const trainerEdit = (trainer_id, trainer_name, date_of_birth) => {
     });
   };
 };
+export const trainerRemove = (trainer_id) => {
+  firebaseConfigure.database().ref(`/trainer/${trainer_id}`).remove();
+};
+
 export const removeInput = () => {
   return (dispatch) => {
     dispatch({

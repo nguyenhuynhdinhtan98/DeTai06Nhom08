@@ -54,6 +54,9 @@ export const subjectEdit = (subject_id, subject_name) => {
     });
   };
 };
+export const subjectRemove = (subject_id) => {
+  firebaseConfigure.database().ref(`/subject/${subject_id}`).remove();
+};
 export const removeInput = () => {
   return (dispatch) => {
     dispatch({

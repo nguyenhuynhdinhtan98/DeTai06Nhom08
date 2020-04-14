@@ -20,6 +20,12 @@ import TrainerImportScreen from '../screen/TrainerImportScreen';
 import ManageSubjectScreen from '../screen/ManageSubjectScreen';
 import SubjectCreateScreen from '../screen/SubjectCreateScreen';
 import SubjectEditScreen from '../screen/SubjectEditScreen';
+import ManageStaticScreen from '../screen/ManageStaticScreen';
+
+import ReportClassBySkillScreen from '../screen/ReportClassBySkillScreen';
+import ReportNumberOfTraineeBySkillScreen from '../screen/ReportNumberOfTraineeBySkillScreen';
+import ChartByClassScreen from '../screen/ChartByClassScreen';
+import ChartBySkillScreen from '../screen/ChartBySkillScreen';
 const Stack = createStackNavigator();
 export default class Router extends Component {
   render() {
@@ -31,14 +37,6 @@ export default class Router extends Component {
             component={HomeScreen}
             options={{
               headerShown: false, //hide header
-            }}
-          />
-          <Stack.Screen
-            name="ManageTraineeScreen"
-            component={ManageTraineeScreen}
-            options={{
-              title: 'Manage Trainee',
-              headerTitleAlign: 'center',
             }}
           />
 
@@ -95,6 +93,14 @@ export default class Router extends Component {
             component={ClassCreateScreen}
             options={{
               title: 'Class Manage',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name="ManageTraineeScreen"
+            component={ManageTraineeScreen}
+            options={{
+              title: 'Manage Trainee',
               headerTitleAlign: 'center',
             }}
           />
@@ -175,6 +181,46 @@ export default class Router extends Component {
             component={TrainerImportScreen}
             options={{
               title: 'Manage Trainer',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name="ManageStaticScreen"
+            component={ManageStaticScreen}
+            options={{
+              title: 'Statistic',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name="ReportClassBySkillScreen"
+            component={ReportClassBySkillScreen}
+            options={{
+              title: 'Statistic',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name="ReportNumberOfTraineeBySkillScreen"
+            component={ReportNumberOfTraineeBySkillScreen}
+            options={{
+              title: 'Statistic',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name="ChartBySkillScreen"
+            component={ChartBySkillScreen}
+            options={{
+              title: 'Chart',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name="ChartByClassScreen"
+            component={ChartByClassScreen}
+            options={{
+              title: 'Chart',
               headerTitleAlign: 'center',
             }}
           />
