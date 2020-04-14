@@ -21,7 +21,6 @@ import ManageSubjectScreen from '../screen/ManageSubjectScreen';
 import SubjectCreateScreen from '../screen/SubjectCreateScreen';
 import SubjectEditScreen from '../screen/SubjectEditScreen';
 import ManageStaticScreen from '../screen/ManageStaticScreen';
-
 import ReportClassBySkillScreen from '../screen/ReportClassBySkillScreen';
 import ReportNumberOfTraineeBySkillScreen from '../screen/ReportNumberOfTraineeBySkillScreen';
 import ChartByClassScreen from '../screen/ChartByClassScreen';
@@ -33,21 +32,19 @@ export default class Router extends Component {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="HomeScreen"
-            component={HomeScreen}
-            options={{
-              headerShown: false, //hide header
-            }}
-          />
-
-          <Stack.Screen
             name="LoginScreen"
             component={LoginScreen}
             options={{
               headerShown: false, //hide header
             }}
           />
-
+          <Stack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            options={{
+              headerShown: false, //hide header
+            }}
+          />
           <Stack.Screen
             name="ManageClassScreen"
             component={ManageClassScreen}

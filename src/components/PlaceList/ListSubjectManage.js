@@ -11,7 +11,6 @@ const ListSubjectManage = ({data, navigation}) => {
     firebaseConfigure
       .database()
       .ref('/class')
-
       .on('value', (snapshot) => {
         Object.values(snapshot.val()).forEach((item) => {
           if (item.subject_id !== undefined) {

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
 import data from '../assets/data/data';
 import ButtonHomeScreen from '../components/Button/ButtonHomeScreen';
+import {saveFile} from '../functions/functions';
 class ReportNumberOfTraineeBySkillScreen extends Component {
   render() {
     return (

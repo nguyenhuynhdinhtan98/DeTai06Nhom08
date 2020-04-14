@@ -40,9 +40,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   containerChart: {
-    margin: 20,
+    marginTop: 20,
   },
 });
 export default ChartBySkillScreen;

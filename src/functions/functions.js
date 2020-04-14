@@ -67,6 +67,25 @@ export const downloadFile = (url, fileName) => {
       Alert.alert('Please Check Storage.', 'File Path:' + resp.path());
     });
 };
+
+export const saveFile = async (data) => {
+  const downloads = RNFetchBlob.fs.dirs.DownloadDir + '/ExportFile.csv';
+  await RNFetchBlob.fs
+    .writeFile(downloads, Papa.unparse(data), 'utf8')
+    .then(() =>
+      Alert.alert(
+        'File Export Success',
+        'Directory:' + downloads,
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+        ],
+        {cancelable: false},
+      ),
+    );
+};
 export const handldeDownloadFileExample = async (fileName) => {
   console.disableYellowBox = true;
   const url = await getUrlFileFirebase(fileName);

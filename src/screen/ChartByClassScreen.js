@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PureChart from 'react-native-pure-chart';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import ButtonHomeScreen from '../components/Button/ButtonHomeScreen';
+
 class ChartByClassScreen extends Component {
   render() {
     let sampleData = [
@@ -40,9 +40,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   containerChart: {
-    margin: 20,
+    marginTop: 20,
   },
 });
 export default ChartByClassScreen;
