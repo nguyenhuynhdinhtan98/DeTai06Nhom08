@@ -9,9 +9,9 @@ import {requestPermission} from '../functions/functions';
 class HomeScreen extends Component {
   componentWillMount() {
     requestPermission();
-    // if (Object.keys(this.props.user).length === 0) {
-    //   this.props.navigation.goBack();
-    // }
+    if (Object.keys(this.props.user).length === 0) {
+      this.props.navigation.goBack();
+    }
   }
   render() {
     return (
