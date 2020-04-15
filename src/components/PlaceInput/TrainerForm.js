@@ -37,7 +37,13 @@ class TrainerForm extends Component {
               placeholder="Select Date Of Birth"
               format="DD-MM-YYYY"
               minDate="01-01-1900"
-              maxDate={new Date()}
+              maxDate={
+                new Date(
+                  new Date().getFullYear() - 18,
+                  new Date().getMonth() - 1,
+                  new Date().getMonth() + 1,
+                )
+              }
               onDateChange={(date) =>
                 this.props.valueChange({prop: 'date_of_birth', value: date})
               }
