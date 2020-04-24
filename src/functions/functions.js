@@ -68,8 +68,8 @@ export const downloadFile = (url, fileName) => {
     });
 };
 
-export const saveFile = async (data) => {
-  const downloads = RNFetchBlob.fs.dirs.DownloadDir + '/ExportFile.csv';
+export const saveFile = async (data, fileName) => {
+  const downloads = RNFetchBlob.fs.dirs.DownloadDir + '/' + fileName + '.csv';
   await RNFetchBlob.fs
     .writeFile(downloads, Papa.unparse(data), 'utf8')
     .then(() =>

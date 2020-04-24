@@ -36,12 +36,15 @@ class ReportClassBySkillScreen extends Component {
     let myArray = [];
     for (var groupName in groups) {
       myArray.push({
-        class_name: groupName,
-        skill: groups[groupName],
-        count: groups[groupName].length,
+        ClassName: groupName,
+        Skill: groups[groupName],
+        NumberOfSkill: groups[groupName].length,
       });
     }
     this.setState({array: myArray});
+  };
+  exportToFile = (value) => {
+    saveFile(value, 'ReportClassBySkill');
   };
   render() {
     return (
@@ -61,13 +64,13 @@ class ReportClassBySkillScreen extends Component {
               renderItem={({item}) => (
                 <View style={styles.containerItemList}>
                   <Text style={[styles.textContentList, {flex: 2}]}>
-                    {item.class_name}
+                    {item.ClassName}
                   </Text>
                   <Text style={[styles.textContentList, {flex: 1}]}>
-                    {item.count}
+                    {item.NumberOfSkill}
                   </Text>
                   <Text style={[styles.textContentList, {flex: 1}]}>
-                    {item.skill}
+                    {item.Skill}
                   </Text>
                 </View>
               )}
@@ -75,7 +78,10 @@ class ReportClassBySkillScreen extends Component {
           </View>
         </View>
         <View style={styles.containerButton}>
-          <ButtonHomeScreen title="Export To File" />
+          <ButtonHomeScreen
+            title="Export To File"
+            onPress={() => this.exportToFile(this.state.array)}
+          />
         </View>
       </View>
     );

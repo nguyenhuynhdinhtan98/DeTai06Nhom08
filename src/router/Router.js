@@ -31,30 +31,7 @@ export default class Router extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
-            name="ManageStaticScreen"
-            component={ManageStaticScreen}
-            options={{
-              title: 'Statistic',
-              headerTitleAlign: 'center',
-            }}
-          />
-          <Stack.Screen
-            name="ChartBySkillScreen"
-            component={ChartBySkillScreen}
-            options={{
-              title: 'Chart',
-              headerTitleAlign: 'center',
-            }}
-          />
-          <Stack.Screen
-            name="ChartByClassScreen"
-            component={ChartByClassScreen}
-            options={{
-              title: 'Chart',
-              headerTitleAlign: 'center',
-            }}
-          />
+       
           <Stack.Screen
             name="LoginScreen"
             component={LoginScreen}
@@ -205,7 +182,30 @@ export default class Router extends Component {
               headerTitleAlign: 'center',
             }}
           />
-
+   <Stack.Screen
+            name="ManageStaticScreen"
+            component={ManageStaticScreen}
+            options={{
+              title: 'Statistic',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name="ChartBySkillScreen"
+            component={ChartBySkillScreen}
+            options={{
+              title: 'Chart',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name="ChartByClassScreen"
+            component={ChartByClassScreen}
+            options={{
+              title: 'Chart',
+              headerTitleAlign: 'center',
+            }}
+          />
           <Stack.Screen
             name="ReportClassBySkillScreen"
             component={ReportClassBySkillScreen}

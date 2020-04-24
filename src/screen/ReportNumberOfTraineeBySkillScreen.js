@@ -21,9 +21,13 @@ class ReportNumberOfTraineeBySkillScreen extends Component {
 
     let myArray = [];
     for (var groupName in groups) {
-      myArray.push({skill: groupName, count: groups[groupName].length});
+      myArray.push({Skill: groupName, NumberOfClass: groups[groupName].length});
     }
     this.setState({array: myArray});
+  };
+
+  exportToFile = (value) => {
+    saveFile(value, 'ReportNumberOfTraineeBySkill');
   };
   render() {
     return (
@@ -43,10 +47,10 @@ class ReportNumberOfTraineeBySkillScreen extends Component {
               renderItem={({item}) => (
                 <View style={styles.containerItemList}>
                   <Text style={[styles.textContentList, {flex: 3}]}>
-                    {item.skill}
+                    {item.Skill}
                   </Text>
                   <Text style={[styles.textContentList, {flex: 1}]}>
-                    {item.count}
+                    {item.NumberOfClass}
                   </Text>
                 </View>
               )}
@@ -54,7 +58,10 @@ class ReportNumberOfTraineeBySkillScreen extends Component {
           </View>
         </View>
         <View style={styles.containerButton}>
-          <ButtonHomeScreen title="Export To File" />
+          <ButtonHomeScreen
+            title="Export To File"
+            onPress={() => this.exportToFile(this.state.array)}
+          />
         </View>
       </View>
     );
