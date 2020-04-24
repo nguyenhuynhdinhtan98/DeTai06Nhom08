@@ -1,21 +1,51 @@
 import React, {Component} from 'react';
 import PureChart from 'react-native-pure-chart';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-
+import _ from 'lodash';
+import {connect} from 'react-redux';
 class ChartByClassScreen extends Component {
+  state = {array: []};
+  componentDidMount() {
+    this.groupByClass();
+  }
+  groupByClass = () => {
+    let arr = [];
+    var groups = {};
+    this.props.trainee.forEach((item1) => {
+      this.props.class.forEach((item2) => {
+        if (item2.trainee_id != undefined) {
+          if (item2.trainee_id.includes(item1.trainee_id) == true) {
+            arr.push({
+              class_name: item2.class_name,
+              trainee_id: item1.trainee_id,
+              skill: item1.skill,
+            });
+          }
+        }
+      });
+    });
+    for (var i = 0; i < arr.length; i++) {
+      var groupName = arr[i].skill;
+      if (!groups[groupName]) {
+        groups[groupName] = [];
+      }
+      groups[groupName].push(arr[i].skill);
+    }
+    let myArray = [];
+    for (var groupName in groups) {
+      myArray.push({x: groupName, y: groups[groupName].length});
+    }
+    this.setState({array: myArray});
+  };
+
   render() {
     let sampleData = [
       {
-        data: [
-          {x: '2018-02-01', y: 30},
-          {x: '2018-03-02', y: 200},
-          {x: '2018-04-03', y: 1700},
-          {x: '2018-05-04', y: 250},
-          {x: '2018-06-05', y: 10},
-        ],
+        data: this.state.array,
         color: '#297AB1',
       },
     ];
+
     return (
       <View style={styles.container}>
         <View styles={styles.containerChart}>
@@ -46,4 +76,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-export default ChartByClassScreen;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    trainee: state.StaticReducer.trainee,
+    class: state.StaticReducer.class,
+  };
+};
+export default connect(mapStateToProps, null)(ChartByClassScreen);

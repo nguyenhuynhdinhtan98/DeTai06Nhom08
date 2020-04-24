@@ -2,8 +2,47 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
 import data from '../assets/data/data';
 import ButtonHomeScreen from '../components/Button/ButtonHomeScreen';
+import _ from 'lodash';
+import {connect} from 'react-redux';
 import {saveFile} from '../functions/functions';
 class ReportClassBySkillScreen extends Component {
+  state = {array: []};
+  componentDidMount() {
+    this.groupBySkill();
+  }
+  groupBySkill = () => {
+    let arr = [];
+    var groups = {};
+    this.props.trainee.forEach((item1) => {
+      this.props.class.forEach((item2) => {
+        if (item2.trainee_id != undefined) {
+          if (item2.trainee_id.includes(item1.trainee_id) == true) {
+            arr.push({
+              class_name: item2.class_name,
+              trainee_id: item1.trainee_id,
+              skill: item1.skill,
+            });
+          }
+        }
+      });
+    });
+    for (var i = 0; i < arr.length; i++) {
+      var groupName = arr[i].skill;
+      if (!groups[groupName]) {
+        groups[groupName] = [];
+      }
+      groups[groupName].push(arr[i].skill);
+    }
+    let myArray = [];
+    for (var groupName in groups) {
+      myArray.push({
+        class_name: groupName,
+        skill: groups[groupName],
+        count: groups[groupName].length,
+      });
+    }
+    this.setState({array: myArray});
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -17,18 +56,18 @@ class ReportClassBySkillScreen extends Component {
           </View>
           <View style={styles.listRow}>
             <FlatList
-              data={data}
+              data={this.state.array}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item}) => (
                 <View style={styles.containerItemList}>
                   <Text style={[styles.textContentList, {flex: 2}]}>
-                    {item.email}
+                    {item.class_name}
                   </Text>
                   <Text style={[styles.textContentList, {flex: 1}]}>
-                    {item.age}
+                    {item.count}
                   </Text>
                   <Text style={[styles.textContentList, {flex: 1}]}>
-                    {item.gender}
+                    {item.skill}
                   </Text>
                 </View>
               )}
@@ -87,8 +126,14 @@ const styles = StyleSheet.create({
   },
   containerItemList: {
     justifyContent: 'center',
-    height: 40,
+    height: 50,
     flexDirection: 'row',
   },
 });
-export default ReportClassBySkillScreen;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    trainee: state.StaticReducer.trainee,
+    class: state.StaticReducer.class,
+  };
+};
+export default connect(mapStateToProps, null)(ReportClassBySkillScreen);

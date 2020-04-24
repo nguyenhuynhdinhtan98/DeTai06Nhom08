@@ -32,6 +32,30 @@ export default class Router extends Component {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name="ManageStaticScreen"
+            component={ManageStaticScreen}
+            options={{
+              title: 'Statistic',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name="ChartBySkillScreen"
+            component={ChartBySkillScreen}
+            options={{
+              title: 'Chart',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name="ChartByClassScreen"
+            component={ChartByClassScreen}
+            options={{
+              title: 'Chart',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
             name="LoginScreen"
             component={LoginScreen}
             options={{
@@ -181,14 +205,7 @@ export default class Router extends Component {
               headerTitleAlign: 'center',
             }}
           />
-          <Stack.Screen
-            name="ManageStaticScreen"
-            component={ManageStaticScreen}
-            options={{
-              title: 'Statistic',
-              headerTitleAlign: 'center',
-            }}
-          />
+
           <Stack.Screen
             name="ReportClassBySkillScreen"
             component={ReportClassBySkillScreen}
@@ -202,22 +219,6 @@ export default class Router extends Component {
             component={ReportNumberOfTraineeBySkillScreen}
             options={{
               title: 'Statistic',
-              headerTitleAlign: 'center',
-            }}
-          />
-          <Stack.Screen
-            name="ChartBySkillScreen"
-            component={ChartBySkillScreen}
-            options={{
-              title: 'Chart',
-              headerTitleAlign: 'center',
-            }}
-          />
-          <Stack.Screen
-            name="ChartByClassScreen"
-            component={ChartByClassScreen}
-            options={{
-              title: 'Chart',
               headerTitleAlign: 'center',
             }}
           />

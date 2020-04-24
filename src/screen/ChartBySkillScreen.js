@@ -1,33 +1,50 @@
 import React, {Component} from 'react';
 import PureChart from 'react-native-pure-chart';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import ButtonHomeScreen from '../components/Button/ButtonHomeScreen';
+import {connect} from 'react-redux';
+import _ from 'lodash';
 class ChartBySkillScreen extends Component {
+  state = {array: []};
+  componentDidMount() {
+    this.groupBySkill();
+  }
+  groupBySkill = () => {
+    var groups = {};
+    for (var i = 0; i < this.props.trainee.length; i++) {
+      var groupName = this.props.trainee[i].skill;
+      if (!groups[groupName]) {
+        groups[groupName] = [];
+      }
+      groups[groupName].push(this.props.trainee[i].skill);
+    }
+
+    let myArray = [];
+    for (var groupName in groups) {
+      myArray.push({x: groupName, y: groups[groupName].length});
+    }
+    this.setState({array: myArray});
+  };
   render() {
-    let sampleData = [
+    let data = [
       {
-        data: [
-          {x: '2018-02-01', y: 30},
-          {x: '2018-03-02', y: 200},
-          {x: '2018-04-03', y: 1700},
-          {x: '2018-05-04', y: 250},
-          {x: '2018-06-05', y: 10},
-        ],
+        data: this.state.array,
         color: '#297AB1',
       },
     ];
+
     return (
       <View style={styles.container}>
         <View styles={styles.containerChart}>
           <PureChart
-            data={sampleData}
+            data={data}
             type="bar"
-            height={550}
+            height={580}
             width={'100%'}
             xAxisColor={'black'}
             yAxisColor={'black'}
+            minValue={0}
             showEvenNumberXaxisLabel={false}
-            numberOfYAxisGuideLine={10}
+            numberOfYAxisGuideLine={5}
             color="black"
           />
         </View>
@@ -46,4 +63,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-export default ChartBySkillScreen;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    trainee: state.StaticReducer.trainee,
+    class: state.StaticReducer.class,
+  };
+};
+export default connect(mapStateToProps, null)(ChartBySkillScreen);

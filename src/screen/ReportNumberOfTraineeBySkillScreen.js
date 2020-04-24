@@ -2,8 +2,29 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
 import data from '../assets/data/data';
 import ButtonHomeScreen from '../components/Button/ButtonHomeScreen';
+import {connect} from 'react-redux';
 import {saveFile} from '../functions/functions';
 class ReportNumberOfTraineeBySkillScreen extends Component {
+  state = {array: []};
+  componentDidMount() {
+    this.groupBySkill();
+  }
+  groupBySkill = () => {
+    var groups = {};
+    for (var i = 0; i < this.props.trainee.length; i++) {
+      var groupName = this.props.trainee[i].skill;
+      if (!groups[groupName]) {
+        groups[groupName] = [];
+      }
+      groups[groupName].push(this.props.trainee[i].skill);
+    }
+
+    let myArray = [];
+    for (var groupName in groups) {
+      myArray.push({skill: groupName, count: groups[groupName].length});
+    }
+    this.setState({array: myArray});
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -17,15 +38,15 @@ class ReportNumberOfTraineeBySkillScreen extends Component {
           </View>
           <View style={styles.listRow}>
             <FlatList
-              data={data}
+              data={this.state.array}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item}) => (
                 <View style={styles.containerItemList}>
                   <Text style={[styles.textContentList, {flex: 3}]}>
-                    {item.email}
+                    {item.skill}
                   </Text>
                   <Text style={[styles.textContentList, {flex: 1}]}>
-                    {item.age}
+                    {item.count}
                   </Text>
                 </View>
               )}
@@ -89,4 +110,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
-export default ReportNumberOfTraineeBySkillScreen;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    trainee: state.StaticReducer.trainee,
+    class: state.StaticReducer.class,
+  };
+};
+export default connect(
+  mapStateToProps,
+  null,
+)(ReportNumberOfTraineeBySkillScreen);
