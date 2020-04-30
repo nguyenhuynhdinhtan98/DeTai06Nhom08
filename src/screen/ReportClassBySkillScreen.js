@@ -27,7 +27,7 @@ class ReportClassBySkillScreen extends Component {
       });
     });
     for (var i = 0; i < arr.length; i++) {
-      var groupName = arr[i].skill;
+      var groupName = arr[i].class_name;
       if (!groups[groupName]) {
         groups[groupName] = [];
       }
@@ -41,6 +41,7 @@ class ReportClassBySkillScreen extends Component {
         NumberOfSkill: groups[groupName].length,
       });
     }
+    console.log(myArray);
     this.setState({array: myArray});
   };
   exportToFile = (value) => {
@@ -51,11 +52,10 @@ class ReportClassBySkillScreen extends Component {
       <View style={styles.container}>
         <View style={styles.containerTable}>
           <View style={styles.headerList}>
-            <Text style={[styles.textHeaderList, {flex: 2}]}>Class</Text>
+            <Text style={[styles.textHeaderList, {flex: 2}]}>Class Name</Text>
             <Text style={[styles.textHeaderList, {flex: 1}]}>
               NumberOfTrainee
             </Text>
-            <Text style={[styles.textHeaderList, {flex: 1}]}>Skill</Text>
           </View>
           <View style={styles.listRow}>
             <FlatList
@@ -68,9 +68,6 @@ class ReportClassBySkillScreen extends Component {
                   </Text>
                   <Text style={[styles.textContentList, {flex: 1}]}>
                     {item.NumberOfSkill}
-                  </Text>
-                  <Text style={[styles.textContentList, {flex: 1}]}>
-                    {item.Skill}
                   </Text>
                 </View>
               )}

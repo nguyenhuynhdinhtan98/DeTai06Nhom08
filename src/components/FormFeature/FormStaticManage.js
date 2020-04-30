@@ -9,7 +9,7 @@ class FormStaticManage extends Component {
       <View style={styles.container}>
         <View style={styles.groupButton}>
           <Button
-            title="Report Class By Skill"
+            title="Report Class"
             onPress={() =>
               this.props.navigation.navigate('ReportClassBySkillScreen')
             }
