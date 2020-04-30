@@ -25,7 +25,7 @@ class ChartByClassScreen extends Component {
       });
     });
     for (var i = 0; i < arr.length; i++) {
-      var groupName = arr[i].skill;
+      var groupName = arr[i].class_name;
       if (!groups[groupName]) {
         groups[groupName] = [];
       }
