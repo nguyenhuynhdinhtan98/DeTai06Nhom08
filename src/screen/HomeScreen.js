@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {BackHandler} from 'react-native';
 import {Text} from 'react-native-elements';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
@@ -11,21 +10,10 @@ class HomeScreen extends Component {
   componentDidMount() {
     requestPermission();
     if (!this.props.user.uid) {
-      this.props.navigation.goBack();
+      this.props.navigation.navigate('LoginScreen');
     }
-    // console.log(this.props.user.uid);
-  }
-  componentWillMount() {
-    BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => this.handleBackButtonClick,
-    );
   }
 
-  handleBackButtonClick() {
-    this.props.navigation.goBack(null);
-    return true;
-  }
   render() {
     return (
       <View style={styles.container}>

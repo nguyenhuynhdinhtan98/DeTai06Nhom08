@@ -11,13 +11,13 @@ import {
   getAllMark,
 } from '../store/actions/ClassAction';
 class ManageClassScreen extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     console.disableYellowBox = true;
-    this.props.getAllClass();
-    this.props.getAllTrainee();
-    this.props.getAllSubject();
-    this.props.getAllTrainer();
-    this.props.getAllMark();
+    await this.props.getAllTrainee();
+    await this.props.getAllSubject();
+    await this.props.getAllTrainer();
+    await this.props.getAllMark();
+    await this.props.getAllClass();
   }
 
   render() {

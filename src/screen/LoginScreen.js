@@ -9,10 +9,11 @@ import LoginForm from '../components/PlaceInput/LoginForm';
 import {requestPermission} from '../functions/functions';
 import {signIn, stateLocked, stateUnLocked} from '../store/actions/LoginAction';
 class LoginScreen extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     console.disableYellowBox = true;
     requestPermission();
-    AsyncStorage.getItem('user').then((value) => {
+    await AsyncStorage.removeItem('user');
+    await AsyncStorage.getItem('user').then((value) => {
       this.handldeAutoLogin(value);
     });
   }
