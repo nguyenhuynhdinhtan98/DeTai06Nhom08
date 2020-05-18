@@ -24,7 +24,6 @@ export const stateUnLocked = () => {
   };
 };
 export const signIn = (email, password) => {
-  console.log(email, password);
   return function (dispatch) {
     dispatch({type: actionType.LOGIN});
     return firebaseConfigure

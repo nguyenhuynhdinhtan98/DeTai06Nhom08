@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {BackHandler} from 'react-native';
 import {Text} from 'react-native-elements';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
@@ -12,6 +13,17 @@ class HomeScreen extends Component {
     if (Object.keys(this.props.user).length === 0) {
       this.props.navigation.goBack();
     }
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      function () {
+        BackHandler.exitApp();
+        return true;
+      }.bind(this),
+    );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress');
   }
   render() {
     return (

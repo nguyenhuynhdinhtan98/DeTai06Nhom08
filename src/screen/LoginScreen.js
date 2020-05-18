@@ -17,10 +17,12 @@ class LoginScreen extends Component {
     });
   }
   componentWillUpdate(nextProps) {
+    this.props.navigation.navigate('HomeScreen');
     if (this.props.user && Object.keys(nextProps.user).length != 0) {
       this.props.navigation.navigate('HomeScreen');
     }
   }
+
   handldeAutoLogin = async (value) => {
     if (JSON.parse(value)) {
       if (JSON.parse(value).email && JSON.parse(value).password) {
@@ -31,6 +33,7 @@ class LoginScreen extends Component {
     }
   };
   handldeOnLogin = () => {
+    this.props.navigation.navigate('HomeScreen');
     const {email, password} = this.props;
     this.props.signIn(email, password);
   };
@@ -59,9 +62,7 @@ class LoginScreen extends Component {
           icon={<Icon name="arrow-right" size={15} color="white" />}
           title="Login"
           loading={this.props.isLoading}
-          onPress={() =>
-            this.handldeOnLogin(this.props.email, this.props.password)
-          }
+          onPress={() => this.handldeOnLogin()}
           containerStyle={{marginTop: 5}}
           disabled={this.props.isLocked}
         />

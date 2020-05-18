@@ -133,9 +133,9 @@ export const requestPermission = async () => {
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('Permission Successs');
+      // console.log('Permission Successs');
     } else {
-      console.log('Permission denied');
+      // console.log('Permission denied');
     }
   } catch (err) {
     console.warn(err);
