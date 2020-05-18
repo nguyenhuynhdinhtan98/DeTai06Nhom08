@@ -13,10 +13,10 @@ import {
 import _ from 'lodash';
 import validation from '../utility/validation';
 class ClassEditScreen extends Component {
-  async componentDidMount() {
+  componentDidMount() {
     console.disableYellowBox = true;
-    await this.props.removeInput();
-    await this.filterTrainee();
+    this.props.removeInput();
+    this.filterTrainee();
     _.each(this.props.route.params.item, (value, prop) => {
       this.props.valueChange({prop, value});
     });

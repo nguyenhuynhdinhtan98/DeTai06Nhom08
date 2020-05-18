@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {BackHandler} from 'react-native';
 import {View, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import FormClassManage from '../components/FormFeature/FormClassManage';
@@ -18,6 +19,7 @@ class ManageClassScreen extends Component {
     this.props.getAllTrainer();
     this.props.getAllMark();
   }
+
   render() {
     return (
       <View style={styles.container}>

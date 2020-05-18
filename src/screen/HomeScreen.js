@@ -8,22 +8,23 @@ import ButtonHomeScreen from '../components/Button/ButtonHomeScreen';
 import TextHeaderHomeScreen from '../components/FormFeature/TextHeaderHomeScreen';
 import {requestPermission} from '../functions/functions';
 class HomeScreen extends Component {
-  componentWillMount() {
+  componentDidMount() {
     requestPermission();
-    if (Object.keys(this.props.user).length === 0) {
+    if (!this.props.user.uid) {
       this.props.navigation.goBack();
     }
+    // console.log(this.props.user.uid);
+  }
+  componentWillMount() {
     BackHandler.addEventListener(
       'hardwareBackPress',
-      function () {
-        BackHandler.exitApp();
-        return true;
-      }.bind(this),
+      () => this.handleBackButtonClick,
     );
   }
 
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress');
+  handleBackButtonClick() {
+    this.props.navigation.goBack(null);
+    return true;
   }
   render() {
     return (
