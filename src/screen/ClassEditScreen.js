@@ -44,6 +44,7 @@ class ClassEditScreen extends Component {
     const checkName = validation('minLength', this.props.class_name);
     const checkTrainerId = validation('notEmpty', this.props.trainer_id);
     if (checkName && checkTrainerId) {
+      //edit class
       this.props.classEdit(
         this.props.class_id,
         this.props.class_name,
@@ -51,6 +52,7 @@ class ClassEditScreen extends Component {
         this.props.trainee_id,
         this.props.subject_id,
       );
+      // edit trainee on class
       _.forEach(this.props.trainee_id, async (trainee_id) => {
         await this.props.markEdit(trainee_id, this.props.subject_id);
       });

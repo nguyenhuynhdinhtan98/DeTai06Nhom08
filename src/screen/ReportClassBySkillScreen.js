@@ -13,6 +13,7 @@ class ReportClassBySkillScreen extends Component {
   groupBySkill = () => {
     let arr = [];
     var groups = {};
+    // group of trainee members on class
     this.props.trainee.forEach((item1) => {
       this.props.class.forEach((item2) => {
         if (item2.trainee_id != undefined) {

@@ -8,6 +8,7 @@ import {subjectRemove} from '../../store/actions/SubjectAction';
 const ListSubjectManage = ({data, navigation}) => {
   subjectRemoveItem = (subject) => {
     let arr = [];
+    //get all class
     firebaseConfigure
       .database()
       .ref('/class')
@@ -24,7 +25,6 @@ const ListSubjectManage = ({data, navigation}) => {
         'Please remove subject on Class',
       );
     } else {
-      console.log('ok');
       subjectRemove(subject.subject_id);
     }
   };

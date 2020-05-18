@@ -11,6 +11,7 @@ class ReportNumberOfTraineeBySkillScreen extends Component {
   }
   groupBySkill = () => {
     var groups = {};
+    // group of trainee members on class
     for (var i = 0; i < this.props.trainee.length; i++) {
       var groupName = this.props.trainee[i].skill;
       if (!groups[groupName]) {
@@ -21,7 +22,10 @@ class ReportNumberOfTraineeBySkillScreen extends Component {
 
     let myArray = [];
     for (var groupName in groups) {
-      myArray.push({Skill: groupName, NumberOfClass: groups[groupName].length});
+      myArray.push({
+        Skill: groupName,
+        NumberOfClass: groups[groupName].length,
+      });
     }
     this.setState({array: myArray});
   };

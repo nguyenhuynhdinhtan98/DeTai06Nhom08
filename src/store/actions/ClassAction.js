@@ -32,7 +32,7 @@ export const classEdit = (
   subject_id,
 ) => {
   return (dispatch) => {
-    firebaseConfigure.database().ref(`/class/${class_id}`).set({
+    firebaseConfigure.database().ref(`/class/${class_id}`).update({
       class_name,
       trainer_id,
       trainee_id,

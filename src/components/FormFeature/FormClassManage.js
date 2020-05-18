@@ -8,6 +8,7 @@ import ListClassManage from '../PlaceList/ListClassManage';
 import ButtonGroupManageScreen from '../Button/ButtonGroupManageScreen';
 class FormClassManage extends Component {
   render() {
+    // move screen
     const {navigation} = this.props;
     return (
       <View style={styles.container}>

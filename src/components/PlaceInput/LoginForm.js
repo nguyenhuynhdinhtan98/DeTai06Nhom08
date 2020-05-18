@@ -4,10 +4,12 @@ import {View, StyleSheet} from 'react-native';
 import FormInput from '../Input/FormInput';
 import {emailChange, passwordChange} from '../../store/actions/LoginAction';
 class LoginForm extends React.Component {
-  onEmailChange = text => {
+  // when email change
+  onEmailChange = (text) => {
     this.props.emailChange(text);
   };
-  onPasswordChange = text => {
+  // when password change
+  onPasswordChange = (text) => {
     this.props.passwordChange(text);
   };
 
@@ -33,7 +35,6 @@ class LoginForm extends React.Component {
           error={this.props.error}
           iconColor="#2C384A"
         />
-
         {this.props.children}
       </View>
     );

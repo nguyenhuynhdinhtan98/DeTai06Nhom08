@@ -33,9 +33,9 @@ class TrainerForm extends Component {
             <DatePicker
               date={this.props.date_of_birth}
               mode="date" //The enum of date, datetime and time
-              androidMode={'spinner'}
+              androidMode={'spinner'} // style spinner date
               placeholder="Select Date Of Birth"
-              format="DD-MM-YYYY"
+              format="DD-MM-YYYY" // format date
               minDate="01-01-1900"
               maxDate={
                 new Date(

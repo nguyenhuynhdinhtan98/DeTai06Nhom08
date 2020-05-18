@@ -20,11 +20,13 @@ class ClassCreateScreen extends Component {
   filterTrainee = async () => {
     let arr = [];
     let array = [];
+    // group of trainee members on class
     await this.props.class.forEach((o1) => {
       if (o1.trainee_id !== undefined) {
         o1.trainee_id.forEach((o2) => arr.push(o2));
       }
     });
+
     await this.props.trainee.forEach((e1) => {
       if (arr.includes(e1.trainee_id) === false) {
         array.push(e1);
@@ -39,12 +41,14 @@ class ClassCreateScreen extends Component {
     const checkName = validation('minLength', this.props.class_name);
     const checkTrainerId = validation('notEmpty', this.props.trainer_id);
     if (checkName && checkTrainerId) {
+      //create class
       this.props.classCreate(
         this.props.class_name,
         this.props.trainer_id,
         this.props.trainee_id,
         this.props.subject_id,
       );
+      // save list trainee
       _.forEach(this.props.trainee_id, async (trainee_id) => {
         await this.props.markCreate(trainee_id, this.props.subject_id);
       });

@@ -17,6 +17,7 @@ class SubjectEditScreen extends Component {
     const checkName = validation('minLength', this.props.subject_name);
     if (checkName) {
       this.props.subjectEdit(this.props.subject_id, this.props.subject_name);
+
       this.props.navigation.goBack();
     } else {
       Alert.alert('Invalid Infromation');
@@ -73,8 +74,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const {uid, subject_name} = state.SubjectReducer;
-  return {uid, subject_name};
+  const {subject_id, subject_name} = state.SubjectReducer;
+  return {subject_id, subject_name};
 };
 export default connect(mapStateToProps, {valueChange, subjectEdit})(
   SubjectEditScreen,

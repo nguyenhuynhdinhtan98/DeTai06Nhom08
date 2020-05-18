@@ -12,7 +12,9 @@ class ListAddTrainee extends Component {
   }
   addTraineeExist = async () => {
     let arr = [];
+    // group trainee exist
     await this.props.trainee.forEach(async (e1) => {
+      //check trainee is exists
       if (this.props.trainee_id.includes(e1.trainee_id) === true) {
         await arr.push(e1);
       }
@@ -27,6 +29,7 @@ class ListAddTrainee extends Component {
   };
   handleGetCheckedToList = (trainee_id) => {
     let process;
+    // if trainee exists
     !this.props.trainee_id.includes(trainee_id)
       ? (process = [...this.props.trainee_id, trainee_id])
       : (process = this.props.trainee_id.filter((item) => item !== trainee_id));

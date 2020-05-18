@@ -6,6 +6,7 @@ import {Alert} from 'react-native';
 import Papa from 'papaparse';
 export const singleFilePicker = async () => {
   try {
+    // pick file type and get path file
     const res = await DocumentPicker.pick({
       type: [DocumentPicker.types.allFiles],
     });
@@ -14,20 +15,21 @@ export const singleFilePicker = async () => {
     Alert.alert(err.message);
   }
 };
+// convert CSV data to JSON
 export const csvDatatoJson = async (uri) => {
-  var RNFS = require('react-native-fs');
+  var RNFS = require('react-native-fs'); // declare library
   return await RNFS.readFile(uri)
     .then((success) => {
       return Papa.parse(success.trim(), {
-        header: true,
-        skipEmptyLines: true,
+        header: true, // header file csv
+        skipEmptyLines: true, // skip line empty
         encoding: 'utf8',
         fastMode: true,
         worker: true,
         complete: (results) => {
           return results;
         },
-      });
+      }); // convert csv to json
     })
     .catch((err) => {
       Alert.alert(err.message);
@@ -35,8 +37,8 @@ export const csvDatatoJson = async (uri) => {
 };
 
 export const getUrlFileFirebase = (fileName) => {
-  const storageRef = configureFirebase.storage().ref();
-  const fileRef = storageRef.child(`/${fileName}`);
+  const storageRef = configureFirebase.storage().ref(); // url firebase storage
+  const fileRef = storageRef.child(`/${fileName}`); //url file name on firebase storage
   return fileRef
     .getDownloadURL()
     .then((url) => {
@@ -54,22 +56,24 @@ export const downloadFile = (url, fileName) => {
     addAndroidDownloads: {
       useDownloadManager: true, // <-- this is the only thing required
       mediaScannable: true,
-      notification: true,
-      overwrite: true,
-      mime: 'text/csv',
-      title: fileName,
-      path: dirs.DownloadDir + '/' + fileName,
+      notification: true, //notify
+      overwrite: true, // overwrite file
+      mime: 'text/csv', //type file
+      title: fileName, //file name
+      path: dirs.DownloadDir + '/' + fileName, //path file
       indicator: true,
     },
   })
-    .fetch('GET', url)
+    .fetch('GET', url) // method get
     .then(async (resp) => {
       Alert.alert('Please Check Storage.', 'File Path:' + resp.path());
     });
 };
 
 export const saveFile = async (data, fileName) => {
+  //url file in storage emulator
   const downloads = RNFetchBlob.fs.dirs.DownloadDir + '/' + fileName + '.csv';
+  //convert JSON data to CSV then it will save in path
   await RNFetchBlob.fs
     .writeFile(downloads, Papa.unparse(data), 'utf8')
     .then(() =>
@@ -86,35 +90,42 @@ export const saveFile = async (data, fileName) => {
       ),
     );
 };
+// download file in storage firebase
 export const handldeDownloadFileExample = async (fileName) => {
   console.disableYellowBox = true;
   const url = await getUrlFileFirebase(fileName);
   await downloadFile(url, fileName);
 };
+
+// find value in list class
 export const searchFilterClass = (listValue, searchValue) => {
   const output = listValue.filter((item) => {
     return item.class_name.indexOf(searchValue) != -1;
   });
   return output;
 };
+// find value in list subject
 export const searchFilterSubject = (listValue, searchValue) => {
   const output = listValue.filter((item) => {
     return item.subject_name.indexOf(searchValue) != -1;
   });
   return output;
 };
+// find value in list trainee
 export const searchFilterTrainee = (listValue, searchValue) => {
   const output = listValue.filter((item) => {
     return item.trainee_name.indexOf(searchValue) != -1;
   });
   return output;
 };
+// find value in list trainer
 export const searchFilterTrainer = (listValue, searchValue) => {
   const output = listValue.filter((item) => {
     return item.trainer_name.indexOf(searchValue) != -1;
   });
   return output;
 };
+//permission read and write file
 export const requestPermission = async () => {
   try {
     const granted = await PermissionsAndroid.request(

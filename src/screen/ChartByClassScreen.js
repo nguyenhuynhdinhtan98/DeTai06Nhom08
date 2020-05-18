@@ -11,6 +11,7 @@ class ChartByClassScreen extends Component {
   groupByClass = () => {
     let arr = [];
     var groups = {};
+    // group trainee is exist on class
     this.props.trainee.forEach((item1) => {
       this.props.class.forEach((item2) => {
         if (item2.trainee_id != undefined) {
@@ -24,6 +25,7 @@ class ChartByClassScreen extends Component {
         }
       });
     });
+    // group of skill members
     for (var i = 0; i < arr.length; i++) {
       var groupName = arr[i].class_name;
       if (!groups[groupName]) {
@@ -33,7 +35,10 @@ class ChartByClassScreen extends Component {
     }
     let myArray = [];
     for (var groupName in groups) {
-      myArray.push({x: groupName, y: groups[groupName].length});
+      myArray.push({
+        x: groupName,
+        y: groups[groupName].length,
+      });
     }
     this.setState({array: myArray});
   };

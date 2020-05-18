@@ -14,6 +14,7 @@ class TrainerCreateScreen extends Component {
     const checkName = validation('minLength', this.props.trainer_name);
     const checkDateOfBirth = validation('notEmpty', this.props.date_of_birth);
     if (checkName && checkDateOfBirth) {
+      // create trainer
       this.props.trainerCreate(
         this.props.trainer_name,
         this.props.date_of_birth,

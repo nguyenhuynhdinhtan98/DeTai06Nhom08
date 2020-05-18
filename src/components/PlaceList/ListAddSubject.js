@@ -5,11 +5,14 @@ import {connect} from 'react-redux';
 import {Card, CardItem} from 'native-base';
 import {valueChange} from '../../store/actions/ClassAction';
 class ListAddSubject extends Component {
+  //auto check subject  when  it is exists
   handleGetCheckedToList = (subject_id) => {
     let process;
+    // if subject exists
     !this.props.subject_id.includes(subject_id)
       ? (process = [...this.props.subject_id, subject_id])
       : (process = this.props.subject_id.filter((item) => item !== subject_id));
+    // when subject change
     this.props.valueChange({
       prop: 'subject_id',
       value: process,

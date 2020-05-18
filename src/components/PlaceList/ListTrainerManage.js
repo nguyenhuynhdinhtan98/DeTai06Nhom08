@@ -7,6 +7,7 @@ import firebaseConfigure from '../../config/configureFirebase';
 import {trainerRemove} from '../../store/actions/TrainerAction';
 const ListTrainerManage = ({data, navigation}) => {
   trainerRemoveItem = (trainer) => {
+    //get all class
     firebaseConfigure
       .database()
       .ref('/class')

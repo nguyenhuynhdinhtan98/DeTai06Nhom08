@@ -10,6 +10,7 @@ class ChartBySkillScreen extends Component {
   }
   groupBySkill = () => {
     var groups = {};
+    // group of skill members
     for (var i = 0; i < this.props.trainee.length; i++) {
       var groupName = this.props.trainee[i].skill;
       if (!groups[groupName]) {
@@ -20,7 +21,10 @@ class ChartBySkillScreen extends Component {
 
     let myArray = [];
     for (var groupName in groups) {
-      myArray.push({x: groupName, y: groups[groupName].length});
+      myArray.push({
+        x: groupName,
+        y: groups[groupName].length,
+      });
     }
     this.setState({array: myArray});
   };
@@ -36,8 +40,8 @@ class ChartBySkillScreen extends Component {
       <View style={styles.container}>
         <View styles={styles.containerChart}>
           <PureChart
-            data={data}
-            type="bar"
+            data={data} // value in chart
+            type="bar" //style chart
             height={580}
             width={'100%'}
             xAxisColor={'black'}

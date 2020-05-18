@@ -7,6 +7,7 @@ import DatePicker from 'react-native-datepicker';
 import {valueChange} from '../../store/actions/ClassAction';
 class ClassForm extends Component {
   render() {
+    //  select item trainer name
     let pickerItems = this.props.trainer.map((element, i) => (
       <Picker.Item
         key={i}
@@ -15,7 +16,6 @@ class ClassForm extends Component {
         value={element.trainer_id}
       />
     ));
-
     return (
       <>
         <View style={styles.inputContainer}>

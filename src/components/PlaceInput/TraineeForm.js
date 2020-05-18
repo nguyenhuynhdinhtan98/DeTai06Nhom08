@@ -9,6 +9,7 @@ import skill from '../../assets/data/skill';
 
 class TraineeForm extends Component {
   render() {
+    //  select item skill
     let pickerItems = skill.map((element, i) => (
       <Picker.Item
         key={i}
@@ -25,7 +26,10 @@ class TraineeForm extends Component {
             placeholder="Enter Your Trainee Name"
             inputContainerStyle={{borderBottomWidth: 0}}
             onChangeText={(text) =>
-              this.props.valueChange({prop: 'trainee_name', value: text})
+              this.props.valueChange({
+                prop: 'trainee_name',
+                value: text,
+              })
             }
             inputStyle={{fontSize: 16, marginLeft: -5}}
           />
@@ -41,9 +45,9 @@ class TraineeForm extends Component {
             <DatePicker
               date={this.props.date_of_birth}
               mode="date" //The enum of date, datetime and time()
-              androidMode={'spinner'}
+              androidMode={'spinner'} // style spinner date
               placeholder="Select Date Of Birth"
-              format="DD-MM-YYYY"
+              format="DD-MM-YYYY" // format date
               minDate="01-01-1900"
               maxDate={
                 new Date(
@@ -53,7 +57,10 @@ class TraineeForm extends Component {
                 )
               }
               onDateChange={(date) =>
-                this.props.valueChange({prop: 'date_of_birth', value: date})
+                this.props.valueChange({
+                  prop: 'date_of_birth',
+                  value: date,
+                })
               }
               showIcon={false}
               style={{flex: 1}}

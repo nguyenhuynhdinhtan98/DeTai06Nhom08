@@ -35,6 +35,7 @@ class LoginScreen extends Component {
     this.props.signIn(email, password);
   };
   renderButton() {
+    // check button submit over 3 times
     if (this.props.counter >= 3) {
       this.props.stateLocked();
       setTimeout(() => {

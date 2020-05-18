@@ -8,6 +8,7 @@ import {traineeRemove} from '../../store/actions/TraineeAction';
 const ListTraineeManage = ({data, navigation}) => {
   traineeRemoveItem = (trainee) => {
     let arr = [];
+    //get all class
     firebaseConfigure
       .database()
       .ref('/class')
@@ -24,7 +25,6 @@ const ListTraineeManage = ({data, navigation}) => {
         'Please remove trainees on Class',
       );
     } else {
-      console.log('ok');
       traineeRemove(trainee.trainee_id);
     }
   };

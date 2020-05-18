@@ -38,7 +38,6 @@ class ClassImportScreen extends Component {
       }
     });
   };
-
   async handldeSaveData() {
     if (this.state.valueFile.length !== 0) {
       await _.forEach(this.state.valueFile, (item) =>
