@@ -13,7 +13,7 @@ import {
 import _ from 'lodash';
 import validation from '../utility/validation';
 class ClassEditScreen extends Component {
-   async componentDidMount() {
+  async componentDidMount() {
     console.disableYellowBox = true;
     await this.props.removeInput();
     await this.filterTrainee();
@@ -44,19 +44,26 @@ class ClassEditScreen extends Component {
     const checkName = validation('minLength', this.props.class_name);
     const checkTrainerId = validation('notEmpty', this.props.trainer_id);
     if (checkName && checkTrainerId) {
-      //edit class
-      this.props.classEdit(
-        this.props.class_id,
-        this.props.class_name,
-        this.props.trainer_id,
-        this.props.trainee_id,
-        this.props.subject_id,
+      const checkNameExist = this.props.class.find(
+        (item) => item.class_name === this.props.class_name,
       );
-      // edit trainee on class
-      _.forEach(this.props.trainee_id, async (trainee_id) => {
-        await this.props.markEdit(trainee_id, this.props.subject_id);
-      });
-      this.props.navigation.goBack();
+      if (checkNameExist === undefined) {
+        //edit class
+        this.props.classEdit(
+          this.props.class_id,
+          this.props.class_name,
+          this.props.trainer_id,
+          this.props.trainee_id,
+          this.props.subject_id,
+        );
+        // edit trainee on class
+        _.forEach(this.props.trainee_id, async (trainee_id) => {
+          await this.props.markEdit(trainee_id, this.props.subject_id);
+        });
+        this.props.navigation.goBack();
+      } else {
+        Alert.alert('Class name is existing');
+      }
     } else {
       Alert.alert('Invalid Infromation');
     }

@@ -18,6 +18,7 @@ class ClassForm extends Component {
     ));
     return (
       <>
+        <Text style={styles.styleText}>Class name</Text>
         <View style={styles.inputContainer}>
           <Input
             value={this.props.class_name}
@@ -29,6 +30,7 @@ class ClassForm extends Component {
             inputStyle={{fontSize: 16, marginLeft: -5}}
           />
         </View>
+        <Text style={styles.styleText}>Trainer name</Text>
         <View style={styles.inputContainer}>
           <Picker
             mode="dialog"
@@ -63,6 +65,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     fontSize: 16,
   },
+  styleText: {textAlign: 'left', alignSelf: 'stretch', marginLeft: 20},
 });
 const mapStateToProps = (state, ownProps) => {
   const {class_name, trainer, trainer_id} = state.ClassReducer;

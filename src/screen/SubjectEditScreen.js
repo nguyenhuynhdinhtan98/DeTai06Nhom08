@@ -16,9 +16,15 @@ class SubjectEditScreen extends Component {
   handldeEditSubject = () => {
     const checkName = validation('minLength', this.props.subject_name);
     if (checkName) {
-      this.props.subjectEdit(this.props.subject_id, this.props.subject_name);
-
-      this.props.navigation.goBack();
+      const checkNameExist = this.props.subject.find(
+        (item) => item.subject_name === this.props.subject_name,
+      );
+      if (checkNameExist === undefined) {
+        this.props.subjectEdit(this.props.subject_id, this.props.subject_name);
+        this.props.navigation.goBack();
+      } else {
+        Alert.alert('Subject name is existing');
+      }
     } else {
       Alert.alert('Invalid Infromation');
     }
@@ -26,21 +32,16 @@ class SubjectEditScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.inputForm}>
-          <SubjectForm />
-        </View>
-        <View style={styles.buttonGroup}>
-          <View style={styles.buttonContainer}>
-            <Button
-              raised
-              icon={
-                <Icon name="edit" type="font-awesome" color="white" size={25} />
-              }
-              containerStyle={{marginTop: 50}}
-              onPress={() => this.handldeEditSubject()}
-              title="Update"
-            />
-          </View>
+        <SubjectForm />
+        <View style={styles.buttonContainer}>
+          <Button
+            raised
+            icon={
+              <Icon name="edit" type="font-awesome" color="white" size={25} />
+            }
+            onPress={() => this.handldeEditSubject()}
+            title="Update"
+          />
         </View>
       </View>
     );
@@ -50,11 +51,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    justifyContent: 'center',
   },
   inputForm: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   buttonGroup: {
     flex: 1,
@@ -62,20 +62,16 @@ const styles = StyleSheet.create({
   inputContainer: {
     borderWidth: 1,
     borderColor: 'black',
-    width: '90%',
-    margin: 10,
     height: 40,
-    justifyContent: 'center',
   },
   buttonContainer: {
-    marginLeft: 20,
-    marginRight: 20,
+    margin: 20,
   },
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const {subject_id, subject_name} = state.SubjectReducer;
-  return {subject_id, subject_name};
+  const {subject_id, subject_name, subject} = state.SubjectReducer;
+  return {subject_id, subject_name, subject};
 };
 export default connect(mapStateToProps, {valueChange, subjectEdit})(
   SubjectEditScreen,

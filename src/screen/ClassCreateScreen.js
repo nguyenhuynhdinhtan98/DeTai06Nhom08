@@ -41,18 +41,25 @@ class ClassCreateScreen extends Component {
     const checkName = validation('minLength', this.props.class_name);
     const checkTrainerId = validation('notEmpty', this.props.trainer_id);
     if (checkName && checkTrainerId) {
-      //create class
-      this.props.classCreate(
-        this.props.class_name,
-        this.props.trainer_id,
-        this.props.trainee_id,
-        this.props.subject_id,
+      const checkNameExist = this.props.class.find(
+        (item) => item.class_name === this.props.class_name,
       );
-      // save list trainee
-      _.forEach(this.props.trainee_id, async (trainee_id) => {
-        await this.props.markCreate(trainee_id, this.props.subject_id);
-      });
-      Alert.alert('Create Success');
+      if (checkNameExist === undefined) {
+        //create class
+        this.props.classCreate(
+          this.props.class_name,
+          this.props.trainer_id,
+          this.props.trainee_id,
+          this.props.subject_id,
+        );
+        // save list trainee
+        _.forEach(this.props.trainee_id, async (trainee_id) => {
+          await this.props.markCreate(trainee_id, this.props.subject_id);
+        });
+        Alert.alert('Create Success');
+      } else {
+        Alert.alert('Class name is existing');
+      }
     } else {
       Alert.alert('Invalid Infromation');
     }

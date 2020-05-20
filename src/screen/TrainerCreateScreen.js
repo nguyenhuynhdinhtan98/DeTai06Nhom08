@@ -14,13 +14,20 @@ class TrainerCreateScreen extends Component {
     const checkName = validation('minLength', this.props.trainer_name);
     const checkDateOfBirth = validation('notEmpty', this.props.date_of_birth);
     if (checkName && checkDateOfBirth) {
-      // create trainer
-      this.props.trainerCreate(
-        this.props.trainer_name,
-        this.props.date_of_birth,
+      const checkNameExist = this.props.trainer.find(
+        (item) => item.trainer_name === this.props.trainer_name,
       );
-      this.props.removeInput();
-      Alert.alert('Create Success');
+      if (checkNameExist === undefined) {
+        // create trainer
+        this.props.trainerCreate(
+          this.props.trainer_name,
+          this.props.date_of_birth,
+        );
+        this.props.removeInput();
+        Alert.alert('Create Success');
+      } else {
+        Alert.alert('Trainer name is existing');
+      }
     } else {
       Alert.alert('Invalid Infromation');
     }
@@ -81,8 +88,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const {trainer_name, date_of_birth} = state.TrainerReducer;
-  return {trainer_name, date_of_birth};
+  const {trainer_name, date_of_birth, trainer} = state.TrainerReducer;
+  return {trainer_name, date_of_birth, trainer};
 };
 export default connect(mapStateToProps, {trainerCreate, removeInput})(
   TrainerCreateScreen,

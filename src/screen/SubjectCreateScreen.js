@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Alert} from 'react-native';
+import firebaseConfigure from '../config/configureFirebase';
 import {connect} from 'react-redux';
 import {Icon, Button} from 'react-native-elements';
 import SubjectForm from '../components/PlaceInput/SubjectForm';
@@ -10,38 +11,44 @@ class SubjectCreateScreen extends Component {
     console.disableYellowBox = true;
     this.props.removeInput();
   }
-  handldeCreateSubject = () => {
+  handldeCreateSubject = async () => {
     const checkName = validation('minLength', this.props.subject_name);
+
     if (checkName) {
-      this.props.subjectCreate(this.props.subject_name);
-      Alert.alert('Create Success');
+      const checkNameExist = this.props.subject.find(
+        (item) => item.subject_name === this.props.subject_name,
+      );
+      if (checkNameExist === undefined) {
+        this.props.subjectCreate(this.props.subject_name);
+        Alert.alert('Create Success');
+      } else {
+        Alert.alert('Subject name is existing');
+      }
     } else {
-      Alert.alert('Invalid Infromation');
+      Alert.alert(
+        'Invalid Infromation By Name',
+        'Please enter subject name more 6 characters',
+      );
     }
   };
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.inputForm}>
-          <SubjectForm />
-        </View>
-        <View style={styles.buttonGroup}>
-          <View style={styles.buttonContainer}>
-            <Button
-              raised
-              icon={
-                <Icon
-                  name="plus-square"
-                  type="font-awesome"
-                  color="white"
-                  size={25}
-                />
-              }
-              containerStyle={{marginTop: 50}}
-              onPress={() => this.handldeCreateSubject()}
-              title="Create"
-            />
-          </View>
+        <SubjectForm />
+        <View style={styles.buttonContainer}>
+          <Button
+            raised
+            icon={
+              <Icon
+                name="plus-square"
+                type="font-awesome"
+                color="white"
+                size={25}
+              />
+            }
+            onPress={() => this.handldeCreateSubject()}
+            title="Create"
+          />
         </View>
       </View>
     );
@@ -51,11 +58,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    justifyContent: 'center',
   },
   inputForm: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   buttonGroup: {
     flex: 1,
@@ -63,20 +69,16 @@ const styles = StyleSheet.create({
   inputContainer: {
     borderWidth: 1,
     borderColor: 'black',
-    width: '90%',
-    margin: 10,
     height: 40,
-    justifyContent: 'center',
   },
   buttonContainer: {
-    marginLeft: 20,
-    marginRight: 20,
+    margin: 20,
   },
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const {subject_name} = state.SubjectReducer;
-  return {subject_name};
+  const {subject_name, subject} = state.SubjectReducer;
+  return {subject_name, subject};
 };
 export default connect(mapStateToProps, {subjectCreate, removeInput})(
   SubjectCreateScreen,

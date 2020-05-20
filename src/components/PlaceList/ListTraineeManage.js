@@ -8,6 +8,7 @@ import {traineeRemove} from '../../store/actions/TraineeAction';
 const ListTraineeManage = ({data, navigation}) => {
   traineeRemoveItem = (trainee) => {
     let arr = [];
+    let class_name = '';
     //get all class
     firebaseConfigure
       .database()
@@ -17,12 +18,16 @@ const ListTraineeManage = ({data, navigation}) => {
           if (item.trainee_id !== undefined) {
             arr.push(...item.trainee_id);
           }
+          if (item.trainee_id.includes(trainee.trainee_id)) {
+            class_name = item.class_name;
+          }
         });
       });
+
     if (arr.includes(trainee.trainee_id)) {
       Alert.alert(
-        'Trainees is existing on Class',
-        'Please remove trainees on Class',
+        'Trainees is existing on ' + class_name,
+        'Please remove trainees on ' + class_name,
       );
     } else {
       traineeRemove(trainee.trainee_id);

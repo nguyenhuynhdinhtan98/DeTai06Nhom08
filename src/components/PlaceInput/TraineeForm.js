@@ -20,6 +20,7 @@ class TraineeForm extends Component {
     ));
     return (
       <>
+        <Text style={styles.styleText}>Trainee Name</Text>
         <View style={styles.inputContainer}>
           <Input
             value={this.props.trainee_name}
@@ -34,6 +35,7 @@ class TraineeForm extends Component {
             inputStyle={{fontSize: 16, marginLeft: -5}}
           />
         </View>
+        <Text style={styles.styleText}>Date of birth</Text>
         <View style={styles.inputContainer}>
           <View
             style={{
@@ -77,6 +79,7 @@ class TraineeForm extends Component {
             />
           </View>
         </View>
+        <Text style={styles.styleText}>Skill</Text>
         <View style={styles.inputContainer}>
           <Picker
             mode="dialog"
@@ -111,6 +114,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     fontSize: 16,
   },
+  styleText: {textAlign: 'left', alignSelf: 'stretch', marginLeft: 20},
 });
 const mapStateToProps = (state, ownProps) => {
   const {trainee_name, date_of_birth, skill} = state.TraineeReducer;

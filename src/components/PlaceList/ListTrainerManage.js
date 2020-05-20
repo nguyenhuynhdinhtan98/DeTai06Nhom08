@@ -18,15 +18,17 @@ const ListTrainerManage = ({data, navigation}) => {
           trainerRemove(trainer.trainer_id);
         } else {
           Alert.alert(
-            `Subject ${trainer.trainer_name} is existing on Class`,
-            'You can not remove',
+            `Trainer ${trainer.trainer_name} is existing on ` +
+              Object.values(snapshot.val())[0].class_name,
+            'Please remove trainer on ' +
+              Object.values(snapshot.val())[0].class_name,
           );
         }
       });
   };
   confirmRemove = (item) => {
     Alert.alert(
-      `Yout want remove ${item.trainer_name} ?`,
+      `Do you want remove ${item.trainer_name} ?`,
       ' ',
       [
         {text: 'No', style: 'cancel'},

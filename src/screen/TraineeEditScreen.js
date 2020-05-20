@@ -42,14 +42,21 @@ class TraineeEditScreen extends Component {
     const checkDateOfBirth = validation('notEmpty', this.props.date_of_birth);
     const checkSkill = validation('notEmpty', this.props.skill);
     if (checkName && checkDateOfBirth && checkSkill) {
-      this.props.traineeEdit(
-        this.props.trainee_id,
-        this.props.trainee_name,
-        this.props.date_of_birth,
-        this.props.skill,
+      const checkNameExist = this.props.trainee.find(
+        (item) => item.trainee_name === this.props.trainee_name,
       );
-      this.props.editMark(this.props.trainee_id, this.props.mark);
-      this.props.navigation.goBack();
+      if (checkNameExist === undefined) {
+        this.props.traineeEdit(
+          this.props.trainee_id,
+          this.props.trainee_name,
+          this.props.date_of_birth,
+          this.props.skill,
+        );
+        this.props.editMark(this.props.trainee_id, this.props.mark);
+        this.props.navigation.goBack();
+      } else {
+        Alert.alert('Trainee name is existing');
+      }
     } else {
       Alert.alert('Invalid Infromation');
     }
@@ -112,6 +119,7 @@ const mapStateToProps = (state, ownProps) => {
     subject,
     subject_item,
     allMark,
+    trainee,
   } = state.TraineeReducer;
   return {
     trainee_id,
@@ -123,6 +131,7 @@ const mapStateToProps = (state, ownProps) => {
     subject,
     subject_item,
     allMark,
+    trainee,
   };
 };
 export default connect(mapStateToProps, {

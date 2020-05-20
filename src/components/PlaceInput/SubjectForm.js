@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import {Input} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {valueChange} from '../../store/actions/SubjectAction';
@@ -8,6 +8,7 @@ class SubjectForm extends Component {
   render() {
     return (
       <>
+        <Text style={styles.styleText}>Subject name</Text>
         <View style={styles.inputContainer}>
           <Input
             value={this.props.subject_name}
@@ -27,8 +28,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     borderWidth: 1,
     borderColor: 'black',
-    width: '90%',
-    margin: 10,
+    margin: 20,
     height: 40,
     justifyContent: 'center',
     borderRadius: 2,
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     fontSize: 16,
   },
+  styleText: {textAlign: 'left', alignSelf: 'stretch', marginLeft: 20},
 });
 const mapStateToProps = (state, ownProps) => {
   const {subject_name} = state.SubjectReducer;

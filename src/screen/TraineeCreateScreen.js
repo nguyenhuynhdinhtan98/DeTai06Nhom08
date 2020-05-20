@@ -15,14 +15,22 @@ class TraineeCreateScreen extends Component {
     const checkName = validation('minLength', this.props.trainee_name);
     const checkDateOfBirth = validation('notEmpty', this.props.date_of_birth);
     const checkSkill = validation('notEmpty', this.props.skill);
+
     if (checkName && checkDateOfBirth && checkSkill) {
-      await this.props.traineeCreate(
-        this.props.trainee_name,
-        this.props.date_of_birth,
-        this.props.skill,
+      const checkNameExist = this.props.trainee.find(
+        (item) => item.trainee_name === this.props.trainee_name,
       );
-      this.props.removeInput();
-      await Alert.alert('Create Success');
+      if (checkNameExist === undefined) {
+        await this.props.traineeCreate(
+          this.props.trainee_name,
+          this.props.date_of_birth,
+          this.props.skill,
+        );
+        this.props.removeInput();
+        await Alert.alert('Create Success');
+      } else {
+        Alert.alert('Trainee name is existing');
+      }
     } else {
       Alert.alert('Invalid Infromation');
     }
@@ -83,8 +91,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, ownProps) => {
-  const {trainee_name, date_of_birth, skill, mark} = state.TraineeReducer;
-  return {trainee_name, date_of_birth, skill, mark};
+  const {
+    trainee,
+    trainee_name,
+    date_of_birth,
+    skill,
+    mark,
+  } = state.TraineeReducer;
+  return {trainee, trainee_name, date_of_birth, skill, mark};
 };
 export default connect(mapStateToProps, {traineeCreate, removeInput})(
   TraineeCreateScreen,

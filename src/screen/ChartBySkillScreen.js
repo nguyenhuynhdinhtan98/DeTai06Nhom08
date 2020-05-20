@@ -38,11 +38,15 @@ class ChartBySkillScreen extends Component {
 
     return (
       <View style={styles.container}>
+        <View style={styles.containerTextChart}>
+          <Text style={styles.textColumn}>Number of skill</Text>
+          <Text style={styles.textColumn}>Skill name</Text>
+        </View>
         <View styles={styles.containerChart}>
           <PureChart
             data={data} // value in chart
             type="bar" //style chart
-            height={580}
+            height={625}
             width={'100%'}
             xAxisColor={'black'}
             yAxisColor={'black'}
@@ -60,11 +64,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  textColumn: {fontSize: 10, fontWeight: 'bold'},
+  containerTextChart: {
+    width: 80,
+    marginTop: 15,
+    marginBottom: 15,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
   containerChart: {
-    marginTop: 20,
+    flex: 4,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 const mapStateToProps = (state, ownProps) => {

@@ -8,6 +8,7 @@ import {subjectRemove} from '../../store/actions/SubjectAction';
 const ListSubjectManage = ({data, navigation}) => {
   subjectRemoveItem = (subject) => {
     let arr = [];
+    let class_name = '';
     //get all class
     firebaseConfigure
       .database()
@@ -17,12 +18,18 @@ const ListSubjectManage = ({data, navigation}) => {
           if (item.subject_id !== undefined) {
             arr.push(...item.subject_id);
           }
+
+          if (item.subject_id !== undefined) {
+            if (item.subject_id.includes(subject.subject_id)) {
+              class_name = item.class_name;
+            }
+          }
         });
       });
     if (arr.includes(subject.subject_id)) {
       Alert.alert(
-        'Subject is existing on Class',
-        'Please remove subject on Class',
+        'Subject is existing on ' + class_name,
+        'Please remove subject on ' + class_name,
       );
     } else {
       subjectRemove(subject.subject_id);
