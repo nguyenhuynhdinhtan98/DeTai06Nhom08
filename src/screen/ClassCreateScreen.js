@@ -43,7 +43,7 @@ class ClassCreateScreen extends Component {
     //check validator
     if (checkName && checkTrainerId) {
       const checkNameExist = this.props.class.find(
-        (item) => item.class_name === this.props.class_name,
+        (item) => item.class_name.trim() === this.props.class_name.trim(),
       );
       if (checkNameExist === undefined) {
         //create class

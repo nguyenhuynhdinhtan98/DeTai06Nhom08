@@ -15,10 +15,10 @@ class SubjectCreateScreen extends Component {
     const checkName = validation('minLength', this.props.subject_name);
     if (checkName) {
       const checkNameExist = this.props.subject.find(
-        (item) => item.subject_name === this.props.subject_name,
+        (item) => item.subject_name.trim() === this.props.subject_name.trim(),
       );
       if (checkNameExist === undefined) {
-        this.props.subjectCreate(this.props.subject_name);
+        this.props.subjectCreate(this.props.subject_name.trim());
         Alert.alert('Create Success');
       } else {
         Alert.alert('Subject name is existing');
