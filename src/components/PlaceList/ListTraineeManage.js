@@ -17,13 +17,12 @@ const ListTraineeManage = ({data, navigation}) => {
         Object.values(snapshot.val()).forEach((item) => {
           if (item.trainee_id !== undefined) {
             arr.push(...item.trainee_id);
-          }
-          if (item.trainee_id.includes(trainee.trainee_id)) {
-            class_name = item.class_name;
+            if (item.trainee_id.includes(trainee.trainee_id)) {
+              class_name = item.class_name;
+            }
           }
         });
       });
-
     if (arr.includes(trainee.trainee_id)) {
       Alert.alert(
         'Trainees is existing on ' + class_name,
@@ -35,7 +34,7 @@ const ListTraineeManage = ({data, navigation}) => {
   };
   confirmRemove = (trainee) => {
     Alert.alert(
-      `Yout want remove ${trainee.trainee_name} ?`,
+      `Do you want remove ${trainee.trainee_name} ?`,
       ' ',
       [
         {text: 'No', style: 'cancel'},

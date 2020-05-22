@@ -13,7 +13,6 @@ class SubjectCreateScreen extends Component {
   }
   handldeCreateSubject = async () => {
     const checkName = validation('minLength', this.props.subject_name);
-
     if (checkName) {
       const checkNameExist = this.props.subject.find(
         (item) => item.subject_name === this.props.subject_name,
@@ -25,10 +24,12 @@ class SubjectCreateScreen extends Component {
         Alert.alert('Subject name is existing');
       }
     } else {
-      Alert.alert(
-        'Invalid Infromation By Name',
-        'Please enter subject name more 6 characters',
-      );
+      if (!checkName) {
+        Alert.alert(
+          'Invalid Information By Name',
+          'Please enter subject name is more than 6 characters',
+        );
+      }
     }
   };
   render() {

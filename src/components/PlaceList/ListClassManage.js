@@ -6,18 +6,19 @@ import {Card, CardItem} from 'native-base';
 import {classRemove} from '../../store/actions/ClassAction';
 const ListClassManage = ({data, navigation}) => {
   const checkItem = (item) => {
-    if (!item.subject_id && !item.subject_id) {
+    if (!item.subject_id && !item.trainee_id) {
       classRemove(item.class_id);
     } else {
-      Alert.alert(
-        'Trainees and subjects is existing on Class',
-        'Please remove trainees and subjects',
-      );
+      if (item.subject_id) {
+        Alert.alert('Subjects is existing on Class', 'Please remove subjects');
+      } else if (item.trainee_id) {
+        Alert.alert('Trainees is existing on Class', 'Please remove trainees ');
+      }
     }
   };
   const confirmRemove = (item) => {
     Alert.alert(
-      `Yout want remove ${item.class_name} ?`,
+      `Do you want remove ${item.class_name} ?`,
       ' ',
       [
         {text: 'No', style: 'cancel'},

@@ -13,23 +13,26 @@ class TrainerCreateScreen extends Component {
   handldeCreateTrainer = () => {
     const checkName = validation('minLength', this.props.trainer_name);
     const checkDateOfBirth = validation('notEmpty', this.props.date_of_birth);
+    //check validator
     if (checkName && checkDateOfBirth) {
-      const checkNameExist = this.props.trainer.find(
-        (item) => item.trainer_name === this.props.trainer_name,
+      this.props.trainerCreate(
+        this.props.trainer_name,
+        this.props.date_of_birth,
       );
-      if (checkNameExist === undefined) {
-        // create trainer
-        this.props.trainerCreate(
-          this.props.trainer_name,
-          this.props.date_of_birth,
-        );
-        this.props.removeInput();
-        Alert.alert('Create Success');
-      } else {
-        Alert.alert('Trainer name is existing');
-      }
+      this.props.removeInput();
+      Alert.alert('Create Success');
     } else {
-      Alert.alert('Invalid Infromation');
+      if (!checkName) {
+        Alert.alert(
+          'Invalid Information By Name',
+          'Please enter trainer name is more than 6 characters',
+        );
+      } else if (!checkDateOfBirth) {
+        Alert.alert(
+          'Invalid Information By Date Of Birth',
+          'Please choose date of birth.',
+        );
+      }
     }
   };
   render() {

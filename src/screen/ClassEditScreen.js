@@ -10,6 +10,7 @@ import {
   removeInput,
   getAllMark,
 } from '../store/actions/ClassAction';
+import firebaseConfigure from '../config/configureFirebase';
 import _ from 'lodash';
 import validation from '../utility/validation';
 class ClassEditScreen extends Component {
@@ -20,6 +21,12 @@ class ClassEditScreen extends Component {
     _.each(this.props.route.params.item, (value, prop) => {
       this.props.valueChange({prop, value});
     });
+  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: this.props.route.params.item.class_name,
+    };
   }
 
   filterTrainee = async () => {
@@ -43,12 +50,9 @@ class ClassEditScreen extends Component {
   handldeEditClass = () => {
     const checkName = validation('minLength', this.props.class_name);
     const checkTrainerId = validation('notEmpty', this.props.trainer_id);
+    //check validator
     if (checkName && checkTrainerId) {
-      const checkNameExist = this.props.class.find(
-        (item) => item.class_name === this.props.class_name,
-      );
-      if (checkNameExist === undefined) {
-        //edit class
+      if (this.state.input.trim() === this.props.class_name.trim()) {
         this.props.classEdit(
           this.props.class_id,
           this.props.class_name,
@@ -62,10 +66,40 @@ class ClassEditScreen extends Component {
         });
         this.props.navigation.goBack();
       } else {
-        Alert.alert('Class name is existing');
+        firebaseConfigure
+          .database()
+          .ref('/class')
+          .orderByChild('class_name')
+          .equalTo(this.props.class_name)
+          .once('value', (snapshot) => {
+            console.log(snapshot.val());
+            if (!snapshot.exists()) {
+              this.props.classEdit(
+                this.props.class_id,
+                this.props.class_name,
+                this.props.trainer_id,
+                this.props.trainee_id,
+                this.props.subject_id,
+              );
+              // edit trainee on class
+              _.forEach(this.props.trainee_id, async (trainee_id) => {
+                await this.props.markEdit(trainee_id, this.props.subject_id);
+              });
+              this.props.navigation.goBack();
+            } else {
+              Alert.alert('Class name is existing');
+            }
+          });
       }
     } else {
-      Alert.alert('Invalid Infromation');
+      if (!checkName) {
+        Alert.alert(
+          'Invalid Information By Name',
+          'Please enter class name is more than 6 characters',
+        );
+      } else if (!checkTrainerId) {
+        Alert.alert('Invalid Information By Trainer', 'Please choose trainer.');
+      }
     }
   };
   render() {

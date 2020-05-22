@@ -3,12 +3,22 @@ import {Text} from 'react-native-elements';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {signOut} from '../store/actions/LoginAction';
+import {
+  getAllClass,
+  getAllTrainee,
+  getAllSubject,
+  getAllTrainer,
+} from '../store/actions/StaticAction';
 import ButtonHomeScreen from '../components/Button/ButtonHomeScreen';
 import TextHeaderHomeScreen from '../components/FormFeature/TextHeaderHomeScreen';
 import {requestPermission} from '../functions/functions';
 class HomeScreen extends Component {
   componentDidMount() {
     requestPermission();
+    this.props.getAllClass();
+    this.props.getAllTrainee();
+    this.props.getAllSubject();
+    this.props.getAllTrainer();
     if (!this.props.user.uid) {
       this.props.navigation.navigate('LoginScreen');
     }
@@ -89,4 +99,10 @@ const mapStateToProps = (state, ownProps) => {
     user: state.LoginReducer.user,
   };
 };
-export default connect(mapStateToProps, {signOut})(HomeScreen);
+export default connect(mapStateToProps, {
+  signOut,
+  getAllClass,
+  getAllTrainee,
+  getAllTrainer,
+  getAllSubject,
+})(HomeScreen);

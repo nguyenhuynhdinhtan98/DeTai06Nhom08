@@ -12,6 +12,7 @@ import {
   getAllMarkTrainee,
   getSubjectName,
   getAllSubject,
+  getAllTrainee,
 } from '../store/actions/TraineeAction';
 import TableEditScreen from '../components/Table/TableEditScreen';
 import validation from '../utility/validation';
@@ -41,24 +42,32 @@ class TraineeEditScreen extends Component {
     const checkName = validation('minLength', this.props.trainee_name);
     const checkDateOfBirth = validation('notEmpty', this.props.date_of_birth);
     const checkSkill = validation('notEmpty', this.props.skill);
+    //check validator
     if (checkName && checkDateOfBirth && checkSkill) {
-      const checkNameExist = this.props.trainee.find(
-        (item) => item.trainee_name === this.props.trainee_name,
+      //edit trainee
+      this.props.traineeEdit(
+        this.props.trainee_id,
+        this.props.trainee_name,
+        this.props.date_of_birth,
+        this.props.skill,
       );
-      if (checkNameExist === undefined) {
-        this.props.traineeEdit(
-          this.props.trainee_id,
-          this.props.trainee_name,
-          this.props.date_of_birth,
-          this.props.skill,
-        );
-        this.props.editMark(this.props.trainee_id, this.props.mark);
-        this.props.navigation.goBack();
-      } else {
-        Alert.alert('Trainee name is existing');
-      }
+      this.props.editMark(this.props.trainee_id, this.props.mark);
+      // this.props.getAllTrainee();
+      this.props.navigation.goBack();
     } else {
-      Alert.alert('Invalid Infromation');
+      if (!checkName) {
+        Alert.alert(
+          'Invalid Information By Name',
+          'Please enter trainee name is more than 6 characters',
+        );
+      } else if (!checkDateOfBirth) {
+        Alert.alert(
+          'Invalid Information By Date Of Birth',
+          'Please choose date of birth.',
+        );
+      } else if (!checkSkill) {
+        Alert.alert('Invalid Information By Skill', 'Please choose skill.');
+      }
     }
   };
 
@@ -140,5 +149,6 @@ export default connect(mapStateToProps, {
   editMark,
   getAllMarkTrainee,
   getSubjectName,
+  getAllTrainee,
   getAllSubject,
 })(TraineeEditScreen);

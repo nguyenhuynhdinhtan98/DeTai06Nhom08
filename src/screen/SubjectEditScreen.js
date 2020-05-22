@@ -5,6 +5,7 @@ import {Icon, Button} from 'react-native-elements';
 import SubjectForm from '../components/PlaceInput/SubjectForm';
 import {valueChange, subjectEdit} from '../store/actions/SubjectAction';
 import _ from 'lodash';
+import firebaseConfigure from '../config/configureFirebase';
 import validation from '../utility/validation';
 class SubjectEditScreen extends Component {
   componentDidMount() {
@@ -12,21 +13,45 @@ class SubjectEditScreen extends Component {
       this.props.valueChange({prop, value});
     });
   }
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: this.props.route.params.item.subject_name,
+    };
+  }
   handldeEditSubject = () => {
     const checkName = validation('minLength', this.props.subject_name);
+    //check validator
     if (checkName) {
-      const checkNameExist = this.props.subject.find(
-        (item) => item.subject_name === this.props.subject_name,
-      );
-      if (checkNameExist === undefined) {
+      if (this.state.input.trim() === this.props.subject_name.trim()) {
         this.props.subjectEdit(this.props.subject_id, this.props.subject_name);
         this.props.navigation.goBack();
       } else {
-        Alert.alert('Subject name is existing');
+        firebaseConfigure
+          .database()
+          .ref('/subject')
+          .orderByChild('subject_name')
+          .equalTo(this.props.subject_name)
+          .once('value', (snapshot) => {
+            console.log(snapshot.val());
+            if (!snapshot.exists()) {
+              this.props.subjectEdit(
+                this.props.subject_id,
+                this.props.subject_name,
+              );
+              this.props.navigation.goBack();
+            } else {
+              Alert.alert('Subject name is existing');
+            }
+          });
       }
     } else {
-      Alert.alert('Invalid Infromation');
+      if (!checkName) {
+        Alert.alert(
+          'Invalid Information By Name',
+          'Please enter subject name is more than 6 characters',
+        );
+      }
     }
   };
   render() {

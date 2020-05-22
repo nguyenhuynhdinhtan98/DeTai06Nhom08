@@ -40,6 +40,7 @@ class ClassCreateScreen extends Component {
   handldeCreateClass = () => {
     const checkName = validation('minLength', this.props.class_name);
     const checkTrainerId = validation('notEmpty', this.props.trainer_id);
+    //check validator
     if (checkName && checkTrainerId) {
       const checkNameExist = this.props.class.find(
         (item) => item.class_name === this.props.class_name,
@@ -61,7 +62,14 @@ class ClassCreateScreen extends Component {
         Alert.alert('Class name is existing');
       }
     } else {
-      Alert.alert('Invalid Infromation');
+      if (!checkName) {
+        Alert.alert(
+          'Invalid Information By Name',
+          'Please enter class name is more than 6 characters',
+        );
+      } else if (!checkTrainerId) {
+        Alert.alert('Invalid Information By Trainer', 'Please choose trainer.');
+      }
     }
   };
   render() {

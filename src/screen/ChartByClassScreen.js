@@ -1,17 +1,28 @@
 import React, {Component} from 'react';
 import PureChart from 'react-native-pure-chart';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {
+  getAllClass,
+  getAllTrainee,
+  getAllSubject,
+  getAllTrainer,
+} from '../store/actions/StaticAction';
 import _ from 'lodash';
 import {connect} from 'react-redux';
 class ChartByClassScreen extends Component {
   state = {array: []};
   componentDidMount() {
+    console.disableYellowBox = true;
+    this.props.getAllClass();
+    this.props.getAllTrainee();
+    this.props.getAllSubject();
+    this.props.getAllTrainer();
     this.groupByClass();
   }
   groupByClass = () => {
     let arr = [];
     var groups = {};
-    // group trainee is exist on class
+    // group trainee is existing on class
     this.props.trainee.forEach((item1) => {
       this.props.class.forEach((item2) => {
         if (item2.trainee_id != undefined) {
@@ -53,24 +64,22 @@ class ChartByClassScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.containerTextChart}>
-          <Text style={styles.textColumn}>Number of skill</Text>
-          <Text style={styles.textColumn}>Class name</Text>
-        </View>
+        <Text style={styles.textColumn}>Number of skill</Text>
         <View styles={styles.containerChart}>
           <PureChart
             data={sampleData} // value in chart
             type="bar" //style chart
-            height={625}
+            height={580}
             width={'100%'}
             xAxisColor={'black'}
             yAxisColor={'black'}
             minValue={0}
             showEvenNumberXaxisLabel={false}
-            numberOfYAxisGuideLine={5}
+            numberOfYAxisGuideLine={10}
             color="black"
           />
         </View>
+        <Text style={styles.textColumn}>Class name</Text>
       </View>
     );
   }
@@ -79,22 +88,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    flexDirection: 'row',
-  },
-  textColumn: {fontSize: 10, fontWeight: 'bold'},
-  containerTextChart: {
-    width: 80,
-    marginTop: 15,
-    marginBottom: 15,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-  },
-  containerChart: {
-    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+  },
+  textColumn: {fontSize: 10, fontWeight: 'bold', margin: 10},
+  containerChart: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });
 const mapStateToProps = (state, ownProps) => {
@@ -103,4 +103,9 @@ const mapStateToProps = (state, ownProps) => {
     class: state.StaticReducer.class,
   };
 };
-export default connect(mapStateToProps, null)(ChartByClassScreen);
+export default connect(mapStateToProps, {
+  getAllClass,
+  getAllTrainee,
+  getAllTrainer,
+  getAllSubject,
+})(ChartByClassScreen);

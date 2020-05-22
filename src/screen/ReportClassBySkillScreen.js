@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import data from '../assets/data/data';
+import {
+  getAllClass,
+  getAllTrainee,
+  getAllSubject,
+  getAllTrainer,
+} from '../store/actions/StaticAction';
 import ButtonHomeScreen from '../components/Button/ButtonHomeScreen';
 import _ from 'lodash';
 import {connect} from 'react-redux';
@@ -8,6 +13,11 @@ import {saveFile} from '../functions/functions';
 class ReportClassBySkillScreen extends Component {
   state = {array: []};
   componentDidMount() {
+    console.disableYellowBox = true;
+    this.props.getAllClass();
+    this.props.getAllTrainee();
+    this.props.getAllSubject();
+    this.props.getAllTrainer();
     this.groupBySkill();
   }
   groupBySkill = () => {
@@ -140,4 +150,9 @@ const mapStateToProps = (state, ownProps) => {
     class: state.StaticReducer.class,
   };
 };
-export default connect(mapStateToProps, null)(ReportClassBySkillScreen);
+export default connect(mapStateToProps, {
+  getAllClass,
+  getAllTrainee,
+  getAllTrainer,
+  getAllSubject,
+})(ReportClassBySkillScreen);

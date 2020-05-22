@@ -15,24 +15,29 @@ class TraineeCreateScreen extends Component {
     const checkName = validation('minLength', this.props.trainee_name);
     const checkDateOfBirth = validation('notEmpty', this.props.date_of_birth);
     const checkSkill = validation('notEmpty', this.props.skill);
-
+    //check validator
     if (checkName && checkDateOfBirth && checkSkill) {
-      const checkNameExist = this.props.trainee.find(
-        (item) => item.trainee_name === this.props.trainee_name,
+      await this.props.traineeCreate(
+        this.props.trainee_name,
+        this.props.date_of_birth,
+        this.props.skill,
       );
-      if (checkNameExist === undefined) {
-        await this.props.traineeCreate(
-          this.props.trainee_name,
-          this.props.date_of_birth,
-          this.props.skill,
-        );
-        this.props.removeInput();
-        await Alert.alert('Create Success');
-      } else {
-        Alert.alert('Trainee name is existing');
-      }
+      this.props.removeInput();
+      await Alert.alert('Create Success');
     } else {
-      Alert.alert('Invalid Infromation');
+      if (!checkName) {
+        Alert.alert(
+          'Invalid Information By Name',
+          'Please enter trainee name is more than 6 characters',
+        );
+      } else if (!checkDateOfBirth) {
+        Alert.alert(
+          'Invalid Information By Date Of Birth',
+          'Please choose date of birth.',
+        );
+      } else if (!checkSkill) {
+        Alert.alert('Invalid Information By Skill', 'Please choose skill.');
+      }
     }
   };
   render() {

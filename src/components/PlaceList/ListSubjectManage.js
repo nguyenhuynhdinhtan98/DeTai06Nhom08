@@ -17,9 +17,6 @@ const ListSubjectManage = ({data, navigation}) => {
         Object.values(snapshot.val()).forEach((item) => {
           if (item.subject_id !== undefined) {
             arr.push(...item.subject_id);
-          }
-
-          if (item.subject_id !== undefined) {
             if (item.subject_id.includes(subject.subject_id)) {
               class_name = item.class_name;
             }
@@ -37,7 +34,7 @@ const ListSubjectManage = ({data, navigation}) => {
   };
   confirmRemove = (subject) => {
     Alert.alert(
-      `Yout want remove ${subject.subject_name} ?`,
+      `Do you want remove ${subject.subject_name} ?`,
       ' ',
       [
         {text: 'No', style: 'cancel'},
