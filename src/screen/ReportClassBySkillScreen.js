@@ -52,7 +52,6 @@ class ReportClassBySkillScreen extends Component {
         NumberOfSkill: groups[groupName].length,
       });
     }
-    console.log(myArray);
     this.setState({array: myArray});
   };
   exportToFile = (value) => {
