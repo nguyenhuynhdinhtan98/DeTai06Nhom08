@@ -45,7 +45,7 @@ class ClassImportScreen extends Component {
       );
       await this.props.navigation.goBack();
     } else {
-      Alert.alert('You Have Import To File');
+      Alert.alert('You Have Import To File.');
     }
   }
   render() {
