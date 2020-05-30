@@ -6,6 +6,8 @@ import {
   getAllSubject,
   getAllTrainer,
 } from '../store/actions/StaticAction';
+import {Picker, Item} from 'native-base';
+import {Input, Icon, Button} from 'react-native-elements';
 import ButtonHomeScreen from '../components/Button/ButtonHomeScreen';
 import {connect} from 'react-redux';
 import {saveFile} from '../functions/functions';
@@ -29,7 +31,6 @@ class ReportNumberOfTraineeBySkillScreen extends Component {
       }
       groups[groupName].push(this.props.trainee[i].skill);
     }
-
     let myArray = [];
     for (var groupName in groups) {
       myArray.push({
@@ -37,19 +38,43 @@ class ReportNumberOfTraineeBySkillScreen extends Component {
         NumberOfClass: groups[groupName].length,
       });
     }
+    if (myArray.length > 0) {
+      myArray.sort((a, b) => a.Skill.localeCompare(b.Skill));
+    }
     this.setState({array: myArray});
   };
 
   exportToFile = (value) => {
     saveFile(value, 'ReportNumberOfTraineeBySkill');
   };
+
   render() {
+    let pickerItems = this.props.class.map((element, i) => (
+      <Picker.Item
+        key={i}
+        style={{fontFamily: 'SourceSansPro-Regular'}}
+        label={element.class_name}
+        value={element.class_id}
+      />
+    ));
     return (
       <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <Picker
+            mode="dialog"
+            iosIcon={<Icon name="arrow-down" />}
+            style={{flex: 1}}
+            selectedValue={this.props.group_name}
+            onValueChange={(value) =>
+              this.props.valueChange({prop: 'group_name', value: value})
+            }>
+            <Picker.Item label="Show All" value="0" />
+            {pickerItems}
+          </Picker>
+        </View>
         <View style={styles.containerTable}>
           <View style={styles.headerList}>
             <Text style={[styles.textHeaderList, {flex: 3}]}>Skill</Text>
-
             <Text style={[styles.textHeaderList, {flex: 1}]}>
               Number Of Trainee
             </Text>
@@ -85,6 +110,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  inputContainer: {
+    borderWidth: 1,
+    borderColor: 'black',
+    marginTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    height: 40,
+    justifyContent: 'center',
+    borderRadius: 2,
   },
   containerTable: {
     flex: 9,

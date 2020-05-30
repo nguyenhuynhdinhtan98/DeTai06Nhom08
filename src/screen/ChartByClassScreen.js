@@ -51,6 +51,9 @@ class ChartByClassScreen extends Component {
         y: groups[groupName].length,
       });
     }
+    if (myArray.length > 0) {
+      myArray.sort((a, b) => a.x.localeCompare(b.x));
+    }
     this.setState({array: myArray});
   };
 

@@ -32,7 +32,7 @@ export const csvDatatoJson = async (uri) => {
       }); // convert csv to json
     })
     .catch((err) => {
-      Alert.alert(err.message);
+      Alert.alert('Invalid File');
     });
 };
 

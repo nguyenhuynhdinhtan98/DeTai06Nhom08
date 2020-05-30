@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   trainee: [],
   trainer: [],
   subject: [],
+  group_name: '0',
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {

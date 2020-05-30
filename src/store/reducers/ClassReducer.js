@@ -3,6 +3,7 @@ const INITIAL_STATE = {
   class_id: '',
   class_name: '',
   trainer_id: '',
+  group_name: '0',
   trainee_id: [],
   subject_id: [],
   error: '',

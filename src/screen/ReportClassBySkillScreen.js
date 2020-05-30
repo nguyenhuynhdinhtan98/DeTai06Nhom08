@@ -5,7 +5,11 @@ import {
   getAllTrainee,
   getAllSubject,
   getAllTrainer,
+  valueChange,
 } from '../store/actions/StaticAction';
+import {Picker, Item} from 'native-base';
+import {searchFilterClass} from '../functions/functions';
+import {Input, Icon, Button} from 'react-native-elements';
 import ButtonHomeScreen from '../components/Button/ButtonHomeScreen';
 import _ from 'lodash';
 import {connect} from 'react-redux';
@@ -52,14 +56,60 @@ class ReportClassBySkillScreen extends Component {
         NumberOfSkill: groups[groupName].length,
       });
     }
+    if (myArray.length > 0) {
+      myArray.sort((a, b) => a.ClassName.localeCompare(b.ClassName));
+    }
     this.setState({array: myArray});
   };
   exportToFile = (value) => {
     saveFile(value, 'ReportClassBySkill');
   };
+
   render() {
+    let valueDropdownClass = () => {
+      let value = _.compact(
+        this.props.class.map((item) => {
+          if (item.class_name.indexOf('_') != -1) {
+            return item.class_name.split('_').shift();
+          } else {
+            return null;
+          }
+        }),
+      );
+      return Array.from(new Set(value));
+    };
+    let pickerItems = valueDropdownClass().map((element, i) => (
+      <Picker.Item
+        key={i}
+        style={{fontFamily: 'SourceSansPro-Regular'}}
+        label={element}
+        value={element}
+      />
+    ));
+    let showValue = (searchValue) => {
+      if (searchValue === '0') {
+        return this.state.array;
+      } else {
+        return this.state.array.filter((item) => {
+          return item.ClassName.indexOf(searchValue) != -1;
+        });
+      }
+    };
     return (
       <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <Picker
+            mode="dialog"
+            iosIcon={<Icon name="arrow-down" />}
+            style={{flex: 1}}
+            selectedValue={this.props.group_name}
+            onValueChange={(value) =>
+              this.props.valueChange({prop: 'group_name', value: value})
+            }>
+            <Picker.Item label="Show All" value="0" />
+            {pickerItems}
+          </Picker>
+        </View>
         <View style={styles.containerTable}>
           <View style={styles.headerList}>
             <Text style={[styles.textHeaderList, {flex: 2}]}>Class Name</Text>
@@ -69,7 +119,7 @@ class ReportClassBySkillScreen extends Component {
           </View>
           <View style={styles.listRow}>
             <FlatList
-              data={this.state.array}
+              data={showValue(this.props.group_name)}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item}) => (
                 <View style={styles.containerItemList}>
@@ -104,6 +154,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 20,
     marginRight: 20,
+  },
+  inputContainer: {
+    borderWidth: 1,
+    borderColor: 'black',
+    marginTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    height: 40,
+    justifyContent: 'center',
+    borderRadius: 2,
   },
   containerButton: {
     flex: 1,
@@ -147,6 +207,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     trainee: state.StaticReducer.trainee,
     class: state.StaticReducer.class,
+    group_name: state.StaticReducer.group_name,
   };
 };
 export default connect(mapStateToProps, {
@@ -154,4 +215,5 @@ export default connect(mapStateToProps, {
   getAllTrainee,
   getAllTrainer,
   getAllSubject,
+  valueChange,
 })(ReportClassBySkillScreen);

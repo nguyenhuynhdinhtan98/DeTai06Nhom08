@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import FormTraineeManage from '../components/FormFeature/FormTraineeManage';
-import {getAllTrainee} from '../store/actions/TraineeAction';
+import {getAllTrainee, getAllClass} from '../store/actions/TraineeAction';
 class ManageTraineeScreen extends Component {
   async componentDidMount() {
     console.disableYellowBox = true;
     await this.props.getAllTrainee();
+    await this.props.getAllClass();
   }
   render() {
     return (
@@ -22,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, {getAllTrainee})(ManageTraineeScreen);
+export default connect(null, {getAllTrainee, getAllClass})(ManageTraineeScreen);

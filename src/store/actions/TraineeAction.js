@@ -95,10 +95,6 @@ export const traineeRemove = (trainee_id) => {
   firebaseConfigure.database().ref(`/trainee/${trainee_id}`).remove();
 };
 export const checkTraineeInMark = (trainee_id) => {
-  // firebaseConfigure
-  //   .database()
-  //   .ref(`/mark/${trainee_id}`)
-  //   .once('value', (snapshot) => console.log(snapshot));
   firebaseConfigure
     .database()
     .ref('/class')
@@ -129,5 +125,27 @@ export const removeInput = () => {
     dispatch({
       type: actionType.NULL_ALL,
     });
+  };
+};
+
+export const getAllClass = () => {
+  return (dispatch) => {
+    firebaseConfigure
+      .database()
+      .ref('class')
+      .orderByChild('class_name')
+      .on('value', (snapshot) => {
+        let array = [];
+        snapshot.forEach((child) => {
+          array.push({
+            ...child.val(),
+            class_id: child.key,
+          });
+        });
+        dispatch({
+          type: actionType.GET_ALL_CLASS,
+          payload: array,
+        });
+      });
   };
 };

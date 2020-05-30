@@ -4,9 +4,11 @@ const INITIAL_STATE = {
   trainee_name: '',
   date_of_birth: '',
   skill: '',
+  group_name: '0',
   mark_subject: 0,
   error: '',
   search: '',
+  class: [],
   trainee: [],
   subject: [],
   mark: [],
@@ -18,6 +20,11 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, [action.payload.prop]: action.payload.value};
     case actionType.GET_ALL_TRAINEE:
       return {...state, trainee: action.payload};
+    case actionType.GET_ALL_CLASS:
+      return {
+        ...state,
+        class: action.payload,
+      };
     case actionType.GET_ALL_MARK:
       return {...state, mark: action.payload};
     case actionType.GET_ALL_SUBJECT:
