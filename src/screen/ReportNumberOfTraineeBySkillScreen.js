@@ -49,29 +49,8 @@ class ReportNumberOfTraineeBySkillScreen extends Component {
   };
 
   render() {
-    let pickerItems = this.props.class.map((element, i) => (
-      <Picker.Item
-        key={i}
-        style={{fontFamily: 'SourceSansPro-Regular'}}
-        label={element.class_name}
-        value={element.class_id}
-      />
-    ));
     return (
       <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <Picker
-            mode="dialog"
-            iosIcon={<Icon name="arrow-down" />}
-            style={{flex: 1}}
-            selectedValue={this.props.group_name}
-            onValueChange={(value) =>
-              this.props.valueChange({prop: 'group_name', value: value})
-            }>
-            <Picker.Item label="Show All" value="0" />
-            {pickerItems}
-          </Picker>
-        </View>
         <View style={styles.containerTable}>
           <View style={styles.headerList}>
             <Text style={[styles.textHeaderList, {flex: 3}]}>Skill</Text>
