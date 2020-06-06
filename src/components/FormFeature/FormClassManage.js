@@ -40,7 +40,7 @@ class FormClassManage extends Component {
         if (this.props.search === '') {
           return this.props.class;
         } else {
-          return searchFilterClass(this.props.class, this.props.search);
+          return searchFilterClass(this.props.class, this.props.search + '_');
         }
       } else {
         return searchFilterClass(this.props.class, this.props.group_name);

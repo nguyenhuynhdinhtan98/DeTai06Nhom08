@@ -91,7 +91,7 @@ class ReportClassBySkillScreen extends Component {
         return this.state.array;
       } else {
         return this.state.array.filter((item) => {
-          return item.ClassName.indexOf(searchValue) != -1;
+          return item.ClassName.indexOf(searchValue + '_') != -1;
         });
       }
     };
