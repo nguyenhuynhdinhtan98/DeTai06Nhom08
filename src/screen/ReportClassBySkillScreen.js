@@ -137,7 +137,7 @@ class ReportClassBySkillScreen extends Component {
         <View style={styles.containerButton}>
           <ButtonHomeScreen
             title="Export To File"
-            onPress={() => this.exportToFile(this.state.array)}
+            onPress={() => this.exportToFile(showValue(this.props.group_name))}
           />
         </View>
       </View>
