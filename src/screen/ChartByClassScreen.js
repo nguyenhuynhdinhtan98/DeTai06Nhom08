@@ -67,7 +67,7 @@ class ChartByClassScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.textColumn}>Number of skill</Text>
+        <Text style={styles.textColumn}>Number of trainee</Text>
         <View styles={styles.containerChart}>
           <PureChart
             data={sampleData} // value in chart
