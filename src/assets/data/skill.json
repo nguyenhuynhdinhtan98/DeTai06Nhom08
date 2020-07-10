@@ -1,52 +1,28 @@
 [{
-        "skill": "Mechanical Technology"
+        "skill": "JAVA"
     },
     {
-        "skill": "Information Technology"
+        "skill": "NET"
     },
     {
-        "skill": "Electrical Engineering Technology"
+        "skill": "C#"
     },
     {
-        "skill": "Electronics Technology"
+        "skill": "C++"
     },
     {
-        "skill": "Automotive Engineering Technology"
+        "skill": "REACT"
     },
     {
-        "skill": "Refrigeration Engineering"
+        "skill": "MOBILE ANDROID"
     },
     {
-        "skill": "Garment Technology"
+        "skill": "MOBILE IOS"
     },
     {
-        "skill": "Chemical Engineering"
+        "skill": "MOBILE FLUTTER"
     },
     {
-        "skill": "Accounting and Auditing"
-    },
-    {
-        "skill": "Fundamental Science"
-    },
-    {
-        "skill": "Political Theories"
-    },
-    {
-        "skill": "Foreign Languages"
-    },
-    {
-        "skill": "Business Administration"
-    },
-    {
-        "skill": "Finance and Banking"
-    },
-    {
-        "skill": "Trade and Tourism"
-    },
-    {
-        "skill": "Civil Engineering"
-    },
-    {
-        "skill": "Law"
+        "skill": "MOBILE REACT NATIVE"
     }
 ]
